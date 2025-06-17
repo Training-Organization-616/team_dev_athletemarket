@@ -61,4 +61,30 @@ public class UserDAO {
 		}
 		return false; // 存在しない場合はfalseを返す
 	}
+
+	public void registUser(String name, String address, String tel, String birthDay, String email, String password)
+			throws DAOException {
+
+		String sql = "INSERT INTO customers (name, address, tel, birth_day, email, password, user_type) VALUES (?, ?, ?, ?, ?, ?, 2)";
+
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				PreparedStatement st = con.prepareStatement(sql)) {
+
+			// パラメータをセット
+			st.setString(1, name);
+			st.setString(2, address);
+			st.setString(3, tel);
+			st.setDate(4, java.sql.Date.valueOf(birthDay));
+			st.setString(5, email);
+			st.setString(6, password);
+
+			// クエリを実行
+			st.executeUpdate();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("顧客情報の登録に失敗しました。");
+		}
+
+	}
 }

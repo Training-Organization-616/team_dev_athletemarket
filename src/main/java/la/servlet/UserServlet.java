@@ -90,6 +90,26 @@ public class UserServlet extends HttpServlet {
 				request.setAttribute("message", "内部エラーが発生しました。DAO");
 				gotoPage(request, response, "/errInternal.jsp");
 			}
+		} else if (action.equals("addUser")) {
+			try {
+				// 確認ページから送信された情報を取得
+				String name = request.getParameter("name");
+				String address = request.getParameter("address");
+				String tel = request.getParameter("tel");
+				String birth_day = request.getParameter("birth_day");
+				String email = request.getParameter("email");
+				String password = request.getParameter("password");
+
+				UserDAO dao = new UserDAO();
+				dao.registUser(name, address, tel, birth_day, email, password);
+
+				// ログイン画面へリダイレクト
+				gotoPage(request, response, "/regist.jsp");
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "登録処理中に内部エラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
 		}
 	}
 
