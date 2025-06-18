@@ -1,0 +1,144 @@
+package la.servlet;
+
+import java.io.IOException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import la.dao.DAOException;
+import la.dao.ItemDAO;
+
+@WebServlet("/ItemServlet")
+public class ItemServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		// 日本語を正しく取得するため
+		request.setCharacterEncoding("UTF-8");
+		// actionを取得
+		String action = request.getParameter("action");
+
+		try {
+
+			// セッション取得
+			//HttpSession session = request.getSession(true);
+
+			// セッションスコープから値を取り出す
+			//UserBean bean = (UserBean) session.getAttribute("bean");
+
+			// パラメータなし(全件取得)
+			if (action == null || action.length() == 0) {
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 最新の情報を取得
+				request.setAttribute("list", dao.findAllItems());
+				gotoPage(request, response, "/showItems.jsp");
+
+				// 商品登録画面に遷移
+			} else if (action.equals("listing")) {
+
+				gotoPage(request, response, "/registItem.jsp");
+
+				// 出品処理をDAOで実行
+			} else if (action.equals("confirm")) {
+
+				// ユーザーIDは、Beanで取得してくる(仮で3固定)
+
+				// カテゴリーID
+				int categoryId = Integer.parseInt(request.getParameter("category_id"));
+				// 商品名
+				String name = request.getParameter("name");
+				// 価格
+				int price = Integer.parseInt(request.getParameter("price"));
+				// メモ
+				String memo = request.getParameter("memo");
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 商品登録処理(会員IDは、セッション情報から)
+				dao.registItem(3, categoryId, name, price, memo);
+
+				// 最新の情報を取得
+				request.setAttribute("list", dao.findAllItems());
+				gotoPage(request, response, "/showItems.jsp");
+
+				// 商品の詳細を表示
+			} else if (action.equals("detail")) {
+
+				// 商品IDを取得
+				int id = Integer.parseInt(request.getParameter("id"));
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 商品一覧から商品IDを取得
+				request.setAttribute("bean", dao.findById(id));
+				gotoPage(request, response, "/itemDetail.jsp");
+
+				// 商品の購入処理
+			} else if (action.equals("purchase")) {
+
+				// 商品IDを取得
+				int id = Integer.parseInt(request.getParameter("id"));
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 購入処理(商品ID取得)
+				dao.purchaseItem(id);
+
+				// 最新の情報を取得
+				request.setAttribute("list", dao.findAllItems());
+				gotoPage(request, response, "/showItems.jsp");
+
+				// マイページ表示（自分の出品商品を確認）
+			} else if (action.equals("mypage")) {
+
+				// ユーザーIDは、Beanで取得してくる(仮で3固定)
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 最新の情報を取得
+				request.setAttribute("list", dao.findByCustomerId(3));
+				gotoPage(request, response, "/mypage.jsp");
+
+			} else {
+
+				request.setAttribute("message", "正しく操作してください。");
+				gotoPage(request, response, "/errInternal.jsp");
+
+			}
+
+		} catch (DAOException e) {
+
+			e.printStackTrace();
+			request.setAttribute("message", "内部エラーが発生しました。");
+			gotoPage(request, response, "/errInternal.jsp");
+		}
+
+	}
+
+	private void gotoPage(HttpServletRequest request,
+			HttpServletResponse response, String page) throws ServletException,
+			IOException {
+		RequestDispatcher rd = request.getRequestDispatcher(page);
+		rd.forward(request, response);
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
+	}
+
+}
