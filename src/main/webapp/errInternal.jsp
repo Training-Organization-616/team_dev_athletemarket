@@ -11,6 +11,5 @@
 
 <h1>${message}</h1>
 
-<a href="/shopping/list.jsp"></a>
 </body>
 </html>

@@ -1,8 +1,7 @@
 package la.bean;
 
-import java.io.Serializable;
+public class CustomerBean {
 
-public class CustomerBean implements Serializable {
 	private int id;
 	private String name;
 	private String address;
@@ -11,14 +10,22 @@ public class CustomerBean implements Serializable {
 	private String email;
 	private String password;
 	private String startDay;
+<<<<<<< HEAD
 	private String userType;
+=======
+	private int userType;
+>>>>>>> a6c15a626e52e720aed4d9134fce16123662a79d
 
 	public CustomerBean() {
 
 	}
 
 	public CustomerBean(int id, String name, String address, String tel, String birthDay, String email,
+<<<<<<< HEAD
 			String password, String startDay, String userType) {
+=======
+			String password, String startDay, int userType) {
+>>>>>>> a6c15a626e52e720aed4d9134fce16123662a79d
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -28,6 +35,7 @@ public class CustomerBean implements Serializable {
 		this.password = password;
 		this.startDay = startDay;
 		this.userType = userType;
+<<<<<<< HEAD
 	}
 
 	public String getStartDay() {
@@ -36,6 +44,8 @@ public class CustomerBean implements Serializable {
 
 	public void setStartDay(String startDay) {
 		this.startDay = startDay;
+=======
+>>>>>>> a6c15a626e52e720aed4d9134fce16123662a79d
 	}
 
 	public int getId() {
@@ -94,11 +104,20 @@ public class CustomerBean implements Serializable {
 		this.password = password;
 	}
 
-	public String getUserType() {
+	public String getStartDay() {
+		return startDay;
+	}
+
+	public void setStartDay(String startDay) {
+		this.startDay = startDay;
+	}
+
+	public int getUserType() {
 		return userType;
 	}
 
-	public void setUserType(String userType) {
+	public void setUserType(int userType) {
 		this.userType = userType;
 	}
+
 }
