@@ -40,8 +40,7 @@ public class LoginServlet extends HttpServlet {
 
 			// セッションスコープにログインしている顧客情報を保存する ?　session.setAttribute("customer", bean);　でcustomerBeanを「保存
 			//ログイン時にデータ保存
-			//			HttpSession session = request.getSession();
-			//			session.setAttribute("customer", bean);
+			HttpSession session = request.getSession();
 
 			if (action == null || action.length() == 0) {
 				// 1：パラメータなしの場合はログイン画面の表示
@@ -71,10 +70,12 @@ public class LoginServlet extends HttpServlet {
 					//データが入っているbean内の"user_type"において、管理者用のログインをuser_type==1、一般会員用のログインをuser_type==2に設定したい。
 					//管理者用のログインをuser_type==1
 					if (bean.getUserType() == 1) {
-						request.setAttribute("message", "入力された情報が会員情報と一致しない");
-						gotoPage(request, response, "/Administrator.jsp");
+						session.setAttribute("loginUser", bean);
+						gotoPage(request, response, "/admin.jsp");
+
 					} else if (bean.getUserType() == 2) {
-						gotoPage(request, response, "/menber.jsp");
+						session.setAttribute("loginUser", bean);
+						gotoPage(request, response, "/showItems.jsp");
 					}
 
 				} else if (bean == null) {
@@ -108,16 +109,12 @@ public class LoginServlet extends HttpServlet {
 				//				HttpSession session = request.getSession();
 				//				session.setAttribute("customer", bean);
 
-				// トップ画面を表示
-				gotoPage(request, response, "/top.jsp");
-
 			} else if (action.equals("logout")) {
 				// 3.actionパラメータがlogoutの場合はログアウト処理
 
 				// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
 				//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
-				HttpSession session = request.getSession();
-				session.removeAttribute("customer");
+				session.removeAttribute("loginuser");
 
 				// ログイン画面を表示
 				gotoPage(request, response, "/login.jsp");

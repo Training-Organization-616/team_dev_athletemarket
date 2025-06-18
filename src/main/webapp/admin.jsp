@@ -8,7 +8,7 @@
 <title>会員一覧</title>
 </head>
 <body>
-<h1>会員一覧検索</h1>
+<h1><a href="/team_dev_athletemarket/AdminServlet?action=">会員一覧検索</a></h1>
 <c:if test="${message != null}">
 <font color="red">${message}</font>
 <br>
@@ -34,7 +34,12 @@ ID:<input type="text" name="userId" > <br>
         </td>
          
     </form>
+   
     
+    </tr>
+    </c:forEach>
+    </table>
+</c:if>
 <script>
   function beforeSubmit() {
     if(window.confirm('本当に強制退会させますか？')) {
@@ -44,10 +49,5 @@ ID:<input type="text" name="userId" > <br>
     }
   }
 </script>
-    
-    </tr>
-    </c:forEach>
-    </table>
-</c:if>
 </body>
 </html>

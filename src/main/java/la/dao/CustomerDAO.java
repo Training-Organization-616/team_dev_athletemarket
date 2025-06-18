@@ -57,10 +57,11 @@ public class CustomerDAO {
 					//6月17------------------
 					email = rs.getString("email");
 					password = rs.getString("password");
-					//int userType = rs.getInt("userType");
+					Date start_day0 = rs.getDate("start_day");
+					String start_day = start_day0.toString();
 					int userType = rs.getInt("user_type");
-					//CustomerBean bean = new CustomerBean(id, name, address, tel, birthDay, email, password, userType);
-					CustomerBean bean = new CustomerBean(id, name, address, tel, birth_day, email, password, userType);
+					CustomerBean bean = new CustomerBean(id, name, address, tel, birth_day, email, password, start_day,
+							userType);
 					return bean;
 				} else {
 					return null; // 主キーに該当するレコードなし

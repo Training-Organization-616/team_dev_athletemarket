@@ -19,7 +19,7 @@
 </form>
 
 <!--新規会員登録へ-->
-<p><a href = "/team_dev_athletemarket/registuser.jsp">新規登録(リンク)</a></p>
+<p><a href = "/team_dev_athletemarket/UserServlet">新規登録(リンク)</a></p>
 
 </body>
 </html>
