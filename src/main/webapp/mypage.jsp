@@ -34,6 +34,7 @@
 				<c:when test="${empty item.purchaseDay}">
 					<img src="images/sample.png" alt="画像"><br>
 				</c:when>
+				<%-- 購入されている --%>
 				<c:otherwise>
 					<img src="images/soldout.png" alt="画像"><br>
 				</c:otherwise>
@@ -46,6 +47,8 @@
 
 		</c:forEach>
 	</div>
+	
+	<p><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a></p>
 
 </body>
 </html>
