@@ -27,6 +27,7 @@ public class CustomerBean implements Serializable {
 		this.birthDay = birthDay;
 		this.email = email;
 		this.password = password;
+		this.startDay = startDay;
 		this.userType = userType;
 	}
 

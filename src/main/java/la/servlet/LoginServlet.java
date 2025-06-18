@@ -71,11 +71,11 @@ public class LoginServlet extends HttpServlet {
 					//管理者用のログインをuser_type==1
 					if (bean.getUserType() == 1) {
 						session.setAttribute("loginUser", bean);
-						gotoPage(request, response, "/admin.jsp");
+						response.sendRedirect("AdminServlet");
 
 					} else if (bean.getUserType() == 2) {
 						session.setAttribute("loginUser", bean);
-						gotoPage(request, response, "/showItems.jsp");
+						response.sendRedirect("ItemServlet");
 					}
 
 				} else if (bean == null) {
