@@ -10,6 +10,7 @@ public class CustomerBean implements Serializable {
 	private String birthDay;
 	private String email;
 	private String password;
+	private String startDay;
 	private String userType;
 
 	public CustomerBean() {
@@ -17,7 +18,7 @@ public class CustomerBean implements Serializable {
 	}
 
 	public CustomerBean(int id, String name, String address, String tel, String birthDay, String email,
-			String password) {
+			String password, String startDay, String userType) {
 		this.id = id;
 		this.name = name;
 		this.address = address;
@@ -25,6 +26,16 @@ public class CustomerBean implements Serializable {
 		this.birthDay = birthDay;
 		this.email = email;
 		this.password = password;
+		this.startDay = startDay;
+		this.userType = userType;
+	}
+
+	public String getStartDay() {
+		return startDay;
+	}
+
+	public void setStartDay(String startDay) {
+		this.startDay = startDay;
 	}
 
 	public int getId() {

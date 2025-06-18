@@ -87,4 +87,13 @@ public class UserDAO {
 		}
 
 	}
+
+	public void withdrawalUser(int id) throws DAOException {
+
+	}
+
+	public void updateUser(int id, String name, String address, String tel, String birthDay, String email,
+			String password) throws DAOException {
+
+	}
 }
