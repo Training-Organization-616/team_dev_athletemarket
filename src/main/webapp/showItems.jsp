@@ -11,7 +11,7 @@
 <body>
 
 	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
-	<p>こんにちは、後で値を入れるさん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet/?action=mypage">マイページ</a>  <a href="#">ログアウト</a></p>
+	<p>こんにちは、後で値を入れるさん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>  <a href="#">ログアウト</a></p>
 	<p>
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>
