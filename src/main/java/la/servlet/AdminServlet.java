@@ -45,22 +45,52 @@ public class AdminServlet extends HttpServlet {
 				// customerInfo.jspにフォーム
 				AdminDAO dao = new AdminDAO();
 				List<CustomerBean> list = dao.findAllCustomer();
-				request.setAttribute("customerlist", list);
-				gotoPage(request, response, "/admin.jsp");
+				if (list == null || list.size() == 0) {
+					request.setAttribute("message", "該当データが存在しません");
+					gotoPage(request, response, "/admin.jsp");
+				} else {
+					request.setAttribute("customerlist", list);
+					gotoPage(request, response, "/admin.jsp");
+				}
+
 			} else if (action.equals("delete")) {
 				String id = request.getParameter("id");
 				AdminDAO dao = new AdminDAO();
+				List<CustomerBean> list = dao.findByIdAndName(id, "");
+				CustomerBean bean = list.get(0);
+				dao.registBlackCustomer(bean.getId(), bean.getEmail());
 				dao.deleteCustomer(Integer.parseInt(id));
-				List<CustomerBean> list = dao.findAllCustomer();
-				request.setAttribute("customerlist", list);
-				gotoPage(request, response, "/admin.jsp");
+				List<CustomerBean> list2 = dao.findAllCustomer();
+				if (list2 == null || list2.size() == 0) {
+					request.setAttribute("message", "該当データが存在しません");
+					gotoPage(request, response, "/admin.jsp");
+				} else {
+					request.setAttribute("customerlist", list2);
+					gotoPage(request, response, "/admin.jsp");
+				}
+
 			} else if (action.equals("search")) {
-				String id = request.getParameter("userId");
-				String name = request.getParameter("name");
-				AdminDAO dao = new AdminDAO();
-				List<CustomerBean> list = dao.findByIdAndName(id, name);
-				request.setAttribute("customerlist", list);
-				gotoPage(request, response, "/admin.jsp");
+				try {
+					String id = request.getParameter("userId");
+					id = id.strip();
+					String name = request.getParameter("name");
+					name = name.strip();
+					AdminDAO dao = new AdminDAO();
+					List<CustomerBean> list = dao.findByIdAndName(id, name);
+					if (list == null || list.size() == 0) {
+						request.setAttribute("message", "該当データが存在しません");
+						gotoPage(request, response, "/admin.jsp");
+					} else {
+						request.setAttribute("customerlist", list);
+						gotoPage(request, response, "/admin.jsp");
+					}
+				} catch (NumberFormatException e) {
+					AdminDAO dao = new AdminDAO();
+					List<CustomerBean> list = dao.findAllCustomer();
+					request.setAttribute("customerlist", list);
+					request.setAttribute("message", "無効な文字列です");
+					gotoPage(request, response, "/admin.jsp");
+				}
 
 			} else {
 				// actionの値が不正
