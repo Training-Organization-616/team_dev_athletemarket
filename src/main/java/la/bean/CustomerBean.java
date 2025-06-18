@@ -18,7 +18,6 @@ public class CustomerBean {
 
 	public CustomerBean(int id, String name, String address, String tel, String birthDay, String email,
 			String password, String startDay, int userType) {
-
 		this.id = id;
 		this.name = name;
 		this.address = address;

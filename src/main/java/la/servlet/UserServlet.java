@@ -21,6 +21,7 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		String action = request.getParameter("action");
+		HttpSession session = request.getSession(false);
 		if (action == null || action.length() == 0) {
 			gotoPage(request, response, "/registUser.jsp");
 		} else if (action.equals("add")) {
@@ -125,8 +126,7 @@ public class UserServlet extends HttpServlet {
 		} else if (action.equals("update")) {
 			// 会員情報画面
 
-			HttpSession session = request.getSession(false);
-			if (session == null) {
+			if (session == null || session.getAttribute("email") == null) {
 				// セッションがない、またはログイン情報がない場合はログイン画面へリダイレクト
 				gotoPage(request, response, "/login.jsp");
 				return;
@@ -152,23 +152,95 @@ public class UserServlet extends HttpServlet {
 
 		} else if (action.equals("updatePage")) {
 
+			// セッションからユーザー情報を取得してリクエストスコープに設定
+			String name = (String) session.getAttribute("name");
+			String address = (String) session.getAttribute("address");
+			String tel = (String) session.getAttribute("tel");
+			String birthDay = (String) session.getAttribute("birthDay");
+			String email = (String) session.getAttribute("email");
+
+			request.setAttribute("name", name);
+			request.setAttribute("address", address);
+			request.setAttribute("tel", tel);
+			request.setAttribute("birthDay", birthDay);
+			request.setAttribute("email", email);
+
 			gotoPage(request, response, "/customerChange.jsp");
 			// 会員情報変更画面にリダイレクト
 
 		} else if (action.equals("updateCheck")) {
 
-			gotoPage(request, response, "/.jsp");
-			// 商品一覧表示画面にリダイレクト
+			try {
+				// フォームから変更データを取得
+				int id = (int) session.getAttribute("id");
+				String name = request.getParameter("name").strip();
+				String address = request.getParameter("address").strip();
+				String tel = request.getParameter("tel").strip();
+				String birthDay = request.getParameter("birth_day").strip();
+				String email = request.getParameter("email").strip();
+				String password = request.getParameter("password").strip();
+
+				// DAOを使ってデータベースの情報を更新
+				UserDAO dao = new UserDAO();
+				dao.updateUser(id, name, address, tel, birthDay, email, password);
+
+				// セッション情報を更新
+				session.setAttribute("name", name);
+				session.setAttribute("address", address);
+				session.setAttribute("tel", tel);
+				session.setAttribute("birthDay", birthDay);
+				session.setAttribute("email", email);
+				session.setAttribute("password", password);
+
+				gotoPage(request, response, "/showItems.jsp");
+				// 商品一覧表示画面にリダイレクト
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "情報の更新中にエラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
 
 		} else if (action.equals("withdrawal")) {
+			// 退会画面
+
+			// セッションからユーザー情報を取得してリクエストスコープに設定
+			String name = (String) session.getAttribute("name");
+			String address = (String) session.getAttribute("address");
+			String tel = (String) session.getAttribute("tel");
+			String birthDay = (String) session.getAttribute("birthDay");
+			String email = (String) session.getAttribute("email");
+			String start_day = (String) session.getAttribute("start_day");
+
+			request.setAttribute("name", name);
+			request.setAttribute("address", address);
+			request.setAttribute("tel", tel);
+			request.setAttribute("birthDay", birthDay);
+			request.setAttribute("email", email);
+			request.setAttribute("start_day", start_day);
 
 			gotoPage(request, response, "/withdrawal.jsp");
 			// 会員情報確認画面の表示（退会用）
 
 		} else if (action.equals("withdrawalUser")) {
 
-			gotoPage(request, response, "/.jsp");
-			// 商品一覧表示画面にリダイレクト
+			try {
+				// セッションからユーザーIDまたはメールアドレスを取得
+				int id = (int) session.getAttribute("id");
+
+				// DAOを利用して退会処理を実行
+				UserDAO dao = new UserDAO();
+				dao.withdrawalUser(id);
+
+				// セッションを破棄
+				session.invalidate();
+
+				gotoPage(request, response, "/showItems.jsp");
+				// 商品一覧表示画面にリダイレクト
+			} catch (DAOException e) {
+				e.printStackTrace();
+				request.setAttribute("message", "退会処理中にエラーが発生しました。");
+				gotoPage(request, response, "/errInternal.jsp");
+			}
 
 		}
 	}

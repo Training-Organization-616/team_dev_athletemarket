@@ -89,11 +89,45 @@ public class UserDAO {
 	}
 
 	public void withdrawalUser(int id) throws DAOException {
+		String sql = "DELETE FROM customers WHERE email = ?";
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				PreparedStatement st = con.prepareStatement(sql)) {
 
+			st.setInt(1, id);
+
+			int rows = st.executeUpdate();
+			if (rows == 0) {
+				throw new DAOException("退会処理に失敗しました。指定されたメールアドレスが存在しません。");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("退会処理中にエラーが発生しました。");
+		}
 	}
 
 	public void updateUser(int id, String name, String address, String tel, String birthDay, String email,
 			String password) throws DAOException {
+		String sql = "UPDATE customers SET name = ?, address = ?, tel = ?, birth_day = ?, email = ?, password = ? WHERE id = ?";
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				PreparedStatement st = con.prepareStatement(sql)) {
 
+			// パラメータを設定
+			st.setString(1, name); // ユーザー名
+			st.setString(2, address); // 住所
+			st.setString(3, tel); // 電話番号
+			st.setDate(4, java.sql.Date.valueOf(birthDay)); // 生年月日
+			st.setString(5, email); // メールアドレス
+			st.setString(6, password); // パスワード
+			st.setInt(7, id); // ユーザーID（WHERE 条件）
+
+			// クエリを実行
+			int rows = st.executeUpdate();
+			if (rows == 0) {
+				throw new DAOException("ユーザー情報の更新に失敗しました。指定されたIDが存在しません。");
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("ユーザー情報の更新処理中にエラーが発生しました。");
+		}
 	}
 }

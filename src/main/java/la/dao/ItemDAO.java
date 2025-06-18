@@ -76,6 +76,9 @@ public class ItemDAO {
 				// PreparedStatementオブジェクトの取得
 				PreparedStatement st = con.prepareStatement(sql);) {
 
+			// エスケープ
+			st.setInt(1, customerId);
+
 			// SQLの実行
 			ResultSet rs = st.executeQuery();
 			List<ListingBean> list = new ArrayList<ListingBean>();
@@ -87,6 +90,7 @@ public class ItemDAO {
 				bean.setId(rs.getInt("id"));
 				bean.setCustomerId(rs.getInt("customer_id"));
 				bean.setCustomerName(rs.getString("customer_name"));
+				bean.setCategoryName(rs.getString("category_name"));
 				bean.setItemName(rs.getString("item_name"));
 				bean.setPrice(rs.getInt("price"));
 				bean.setPurchaseDay(rs.getString("purchase_day"));
