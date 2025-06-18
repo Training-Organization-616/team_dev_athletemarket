@@ -1,32 +1,50 @@
 package la.bean;
 
+<<<<<<< HEAD
 import java.io.Serializable;
 
 public class CustomerBean implements Serializable {
+=======
+public class CustomerBean {
+
+>>>>>>> 065f8a235f91d7ca40b5a23784f0b7af14154891
 	private int id;
 	private String name;
 	private String address;
 	private String tel;
+<<<<<<< HEAD
 	//６月17直し
 	//private String birthDay;
 	private String birth_day;
 	//６月17直し----
 	private String email;
 	private String password;
+=======
+	private String birthDay;
+	private String email;
+	private String password;
+	private String startDay;
+>>>>>>> 065f8a235f91d7ca40b5a23784f0b7af14154891
 	private int userType;
 
 	public CustomerBean() {
 
 	}
 
+<<<<<<< HEAD
 	public CustomerBean(int id, String name, String address, String tel, String birth_day, String email,
 			String password, int userType) {
 		//	public CustomerBean(int id, String name, String address, String tel, String birthDay, String email, String password,
 		//			int userType) {
+=======
+	public CustomerBean(int id, String name, String address, String tel, String birthDay, String email,
+			String password, String startDay, int userType) {
+>>>>>>> 065f8a235f91d7ca40b5a23784f0b7af14154891
 		this.id = id;
 		this.name = name;
 		this.address = address;
 		this.tel = tel;
+<<<<<<< HEAD
 		//６月17直し
 		//		this.birthDay = birthDay;
 		this.birth_day = birth_day;
@@ -37,6 +55,23 @@ public class CustomerBean implements Serializable {
 		this.userType = userType;
 	}
 
+=======
+		this.birthDay = birthDay;
+		this.email = email;
+		this.password = password;
+		this.startDay = startDay;
+		this.userType = userType;
+	}
+
+	public String getStartDay() {
+		return startDay;
+	}
+
+	public void setStartDay(String startDay) {
+		this.startDay = startDay;
+	}
+
+>>>>>>> 065f8a235f91d7ca40b5a23784f0b7af14154891
 	public int getId() {
 		return id;
 	}
@@ -69,6 +104,7 @@ public class CustomerBean implements Serializable {
 		this.tel = tel;
 	}
 
+<<<<<<< HEAD
 	//	public String getBirthDay() {
 	//		return birthDay;
 	//	}
@@ -82,6 +118,14 @@ public class CustomerBean implements Serializable {
 
 	public void setBirth_Day(String birth_day) {
 		this.birth_day = birth_day;
+=======
+	public String getBirthDay() {
+		return birthDay;
+	}
+
+	public void setBirthDay(String birthDay) {
+		this.birthDay = birthDay;
+>>>>>>> 065f8a235f91d7ca40b5a23784f0b7af14154891
 	}
 
 	public String getEmail() {
