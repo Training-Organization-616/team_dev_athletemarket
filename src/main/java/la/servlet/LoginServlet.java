@@ -114,7 +114,7 @@ public class LoginServlet extends HttpServlet {
 
 				// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
 				//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
-				session.removeAttribute("loginuser");
+				session.removeAttribute("loginUser");
 
 				// ログイン画面を表示
 				gotoPage(request, response, "/login.jsp");

@@ -13,6 +13,9 @@
 <font color="red">${message}</font>
 <br>
 </c:if>
+
+<a href="/team_dev_athletemarket/LoginServlet?action=logout" method="post">
+ログアウト</a>
 <form action="/team_dev_athletemarket/AdminServlet?action=search" method="post">
 ID:<input type="text" name="userId" > <br>
 名前：<input type="text" name="name" > <br>
