@@ -89,7 +89,7 @@ public class UserDAO {
 	}
 
 	public void withdrawalUser(int id) throws DAOException {
-		String sql = "DELETE FROM customers WHERE email = ?";
+		String sql = "DELETE FROM customers WHERE id = ?";
 		try (Connection con = DriverManager.getConnection(url, user, pass);
 				PreparedStatement st = con.prepareStatement(sql)) {
 

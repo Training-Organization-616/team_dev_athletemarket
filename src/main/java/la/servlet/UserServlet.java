@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import la.bean.CustomerBean;
 import la.dao.DAOException;
 import la.dao.UserDAO;
 
@@ -117,7 +118,7 @@ public class UserServlet extends HttpServlet {
 				dao.registUser(name, address, tel, birth_day, email, password);
 
 				// ログイン画面へリダイレクト
-				gotoPage(request, response, "/regist.jsp");
+				gotoPage(request, response, "/login.jsp");
 			} catch (DAOException e) {
 				e.printStackTrace();
 				request.setAttribute("message", "登録処理中に内部エラーが発生しました。");
@@ -126,7 +127,7 @@ public class UserServlet extends HttpServlet {
 		} else if (action.equals("update")) {
 			// 会員情報画面
 
-			if (session == null || session.getAttribute("email") == null) {
+			if (session == null) {
 				// セッションがない、またはログイン情報がない場合はログイン画面へリダイレクト
 				request.setAttribute("message", "ログインしてください");
 				gotoPage(request, response, "/login.jsp");
@@ -173,7 +174,7 @@ public class UserServlet extends HttpServlet {
 
 			try {
 				// フォームから変更データを取得
-				int id = (int) session.getAttribute("id");
+				CustomerBean bean = (CustomerBean) session.getAttribute("loginUser");
 				String name = request.getParameter("name");
 				name = (name != null) ? name.strip() : "";
 
@@ -205,7 +206,7 @@ public class UserServlet extends HttpServlet {
 						|| passwordCheck == null || passwordCheck.isEmpty()) {
 					// 未入力チェック
 					request.setAttribute("message", "未入力の情報があります");
-					gotoPage(request, response, "/registUser.jsp");
+					gotoPage(request, response, "/customerChange.jsp");
 					// エラーメッセージを出力して新規登録画面に戻る
 					return;
 				}
@@ -213,13 +214,13 @@ public class UserServlet extends HttpServlet {
 				if (!password.equals(passwordCheck)) {
 					// パスワードと確認用パスワード一致チェック
 					request.setAttribute("message", "パスワードが一致しません");
-					gotoPage(request, response, "/registUser.jsp");
+					gotoPage(request, response, "/customerChange.jsp");
 					return;
 				}
 
 				// DAOを使ってデータベースの情報を更新
 				UserDAO dao = new UserDAO();
-				dao.updateUser(id, name, address, tel, birth_day, email, password);
+				dao.updateUser(bean.getId(), name, address, tel, birth_day, email, password);
 
 				// セッション情報を更新
 				session.setAttribute("name", name);
@@ -261,12 +262,12 @@ public class UserServlet extends HttpServlet {
 		} else if (action.equals("withdrawalUser")) {
 
 			try {
-				// セッションからユーザーIDまたはメールアドレスを取得
-				int id = (int) session.getAttribute("id");
+				// セッションからユーザーID取得
+				CustomerBean bean = (CustomerBean) session.getAttribute("loginUser");
 
 				// DAOを利用して退会処理を実行
 				UserDAO dao = new UserDAO();
-				dao.withdrawalUser(id);
+				dao.withdrawalUser(bean.getId());
 
 				// セッションを破棄
 				session.invalidate();
