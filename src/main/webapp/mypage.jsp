@@ -11,7 +11,7 @@
 <body>
 
 	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
-	<p>こんにちは、${loginUser.name}さん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a>  <a href="#">ログアウト</a></p>
+	<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a>  <a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
 	<p>
 	<div class="btns">
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
@@ -20,7 +20,7 @@
 		</form>
 		<form action="/team_dev_athletemarket/UserServlet" method="get">
 			<button>退会</button>
-			<input type="hidden" name="action" value="widthdrawlUser">
+			<input type="hidden" name="action" value="withdrawal">
 		</form>
 		</div>
 	</p>
