@@ -272,7 +272,10 @@ public class UserServlet extends HttpServlet {
 				// セッションを破棄
 				session.invalidate();
 
-				gotoPage(request, response, "/showItems.jsp");
+				// 商品一覧表示
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/ItemServlet?action=");
+				dispatcher.forward(request, response);
+
 				// 商品一覧表示画面にリダイレクト
 			} catch (DAOException e) {
 				e.printStackTrace();
