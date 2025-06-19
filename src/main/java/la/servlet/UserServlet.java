@@ -175,25 +175,25 @@ public class UserServlet extends HttpServlet {
 			try {
 				// フォームから変更データを取得
 				CustomerBean bean = (CustomerBean) session.getAttribute("loginUser");
-				String name = request.getParameter("name");
+				String name = request.getParameter("name1");
 				name = (name != null) ? name.strip() : "";
 
-				String address = request.getParameter("address");
+				String address = request.getParameter("address1");
 				address = (address != null) ? address.strip() : "";
 
-				String tel = request.getParameter("tel");
+				String tel = request.getParameter("tel1");
 				tel = (tel != null) ? tel.strip() : "";
 
-				String birth_day = request.getParameter("birth_day");
+				String birth_day = request.getParameter("birth_day1");
 				birth_day = (birth_day != null) ? birth_day.strip() : "";
 
-				String email = request.getParameter("email");
+				String email = request.getParameter("email1");
 				email = (email != null) ? email.strip() : "";
 
-				String password = request.getParameter("password");
+				String password = request.getParameter("password1");
 				password = (password != null) ? password.strip() : "";
 
-				String passwordCheck = request.getParameter("passwordCheck");
+				String passwordCheck = request.getParameter("passwordCheck1");
 				passwordCheck = (passwordCheck != null) ? passwordCheck.strip() : "";
 				// 空白チェック
 
@@ -221,6 +221,8 @@ public class UserServlet extends HttpServlet {
 				// DAOを使ってデータベースの情報を更新
 				UserDAO dao = new UserDAO();
 				dao.updateUser(bean.getId(), name, address, tel, birth_day, email, password);
+
+				bean.setName(name);
 
 				// セッション情報を更新
 				session.setAttribute("name", name);
