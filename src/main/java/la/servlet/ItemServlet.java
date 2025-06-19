@@ -1,6 +1,7 @@
 package la.servlet;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -8,7 +9,10 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import la.bean.CustomerBean;
+import la.bean.ListingBean;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
 
@@ -27,10 +31,10 @@ public class ItemServlet extends HttpServlet {
 		try {
 
 			// セッション取得
-			//HttpSession session = request.getSession(true);
+			HttpSession session = request.getSession(true);
 
 			// セッションスコープから値を取り出す
-			//UserBean bean = (UserBean) session.getAttribute("bean");
+			CustomerBean bean = (CustomerBean) session.getAttribute("loginUser");
 
 			// パラメータなし(全件取得)
 			if (action == null || action.length() == 0) {
@@ -50,8 +54,6 @@ public class ItemServlet extends HttpServlet {
 				// 出品処理をDAOで実行
 			} else if (action.equals("confirm")) {
 
-				// ユーザーIDは、Beanで取得してくる(仮で3固定)
-
 				// カテゴリーID
 				int categoryId = Integer.parseInt(request.getParameter("category_id"));
 				// 商品名
@@ -65,7 +67,7 @@ public class ItemServlet extends HttpServlet {
 				ItemDAO dao = new ItemDAO();
 
 				// 商品登録処理(会員IDは、セッション情報から)
-				dao.registItem(3, categoryId, name, price, memo);
+				dao.registItem(bean.getId(), categoryId, name, price, memo);
 
 				// 最新の情報を取得
 				request.setAttribute("list", dao.findAllItems());
@@ -103,14 +105,26 @@ public class ItemServlet extends HttpServlet {
 				// マイページ表示（自分の出品商品を確認）
 			} else if (action.equals("mypage")) {
 
-				// ユーザーIDは、Beanで取得してくる(仮で3固定)
-
 				// DAOインスタンス生成
 				ItemDAO dao = new ItemDAO();
 
-				// 最新の情報を取得
-				request.setAttribute("list", dao.findByCustomerId(3));
-				gotoPage(request, response, "/mypage.jsp");
+				// beanから会員IDを取得して検索
+				List<ListingBean> list = dao.findByCustomerId(bean.getId());
+
+				// 結果がnull
+				if (list == null) {
+
+					// 最新の情報を取得
+					request.setAttribute("status", "出品状態の商品が存在しません");
+					gotoPage(request, response, "/mypage.jsp");
+
+				} else {
+
+					// 最新の情報を取得
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/mypage.jsp");
+
+				}
 
 			} else {
 

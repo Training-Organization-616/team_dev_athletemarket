@@ -58,7 +58,7 @@
 				<input type="hidden" name="action" value="confirm">
 				<button>出品</button>
 			</form>
-<!--			<br><a href="/personal_dev_9938_kawasaki_ryoma/TaskServlet">タスク一覧に戻る</a>-->
+			<br><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a>
 </body>
 <script>
 	function check() {

@@ -11,23 +11,28 @@
 
 	<h3>${bean.itemName}</h3>
 
-	<img src="images/sample.png">
+	<img src="images/${bean.categoryName}.png">
 	<br> カテゴリー：${bean.categoryName}
 	<br>
 	<br> 出品者名：${bean.customerName}
 	<br>
-	<br> 値段：${bean.price}
+	<br> 値段：${bean.price}円
 	<br>
 	<br> メモ：${bean.memo}
 	<br>
 	<br>
 
-	<form action="/team_dev_athletemarket/ItemServlet" method="post" onsubmit="return check()">
-		<input type="hidden" name="action" value="purchase">
-		<input type="hidden" name="id" value="${bean.id}">
-		<button>購入</button>
-	</form>
-	
+	<c:choose>
+		<%-- 購入されていない --%>
+		<c:when test="${empty bean.purchaseDay}">
+			<form action="/team_dev_athletemarket/ItemServlet" method="post" onsubmit="return check()">
+				<input type="hidden" name="action" value="purchase">
+				<input type="hidden" name="id" value="${bean.id}">
+				<button>購入</button>
+			</form>	
+		</c:when>
+	</c:choose>
+
 	<p><a href="/team_dev_athletemarket/ItemServlet">商品一覧画面へ戻る</a></p>
 
 </body>

@@ -83,6 +83,11 @@ public class ItemDAO {
 			ResultSet rs = st.executeQuery();
 			List<ListingBean> list = new ArrayList<ListingBean>();
 
+			// データなし
+			if (!rs.next()) {
+				list = null;
+			}
+
 			// 結果の取得
 			while (rs.next()) {
 

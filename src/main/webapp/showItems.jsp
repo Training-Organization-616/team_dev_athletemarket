@@ -11,7 +11,7 @@
 <body>
 
 	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
-	<p>こんにちは、後で値を入れるさん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>  <a href="#">ログアウト</a></p>
+	<p>こんにちは、${loginUser.name}さん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>  <a href="#">ログアウト</a></p>
 	<p>
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>
@@ -23,7 +23,7 @@
 		<c:forEach items="${list}" var="item">
 
 			<div class="card">
-				<img src="images/sample.png" alt="画像"><br> <a
+				<img src="images/${item.categoryName}.png" alt="画像"> <a
 					href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
 				カテゴリー：${item.categoryName}<br> 出品者名：${item.customerName}<br>
 				値段：${item.price}円<br>

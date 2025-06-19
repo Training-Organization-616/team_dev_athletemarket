@@ -18,8 +18,17 @@
   border: solid #000000 1px;
 }
 
+.status {
+	text-align: center!important;
+}
+
 p {
 	text-align: right;
+}
+
+img {
+	width: 290px;
+	height: 290px;
 }
 
 /*.card-content {*/

@@ -11,7 +11,7 @@
 <body>
 
 	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
-	<p>こんにちは、後で値を入れるさん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a>  <a href="#">ログアウト</a></p>
+	<p>こんにちは、${loginUser.name}さん<br><a href="#">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a>  <a href="#">ログアウト</a></p>
 	<p>
 	<div class="btns">
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
@@ -25,14 +25,16 @@
 		</div>
 	</p>
 	
+	<p class="status">${status}</p>
+	
 	<div class="card-wrapper">
 		<c:forEach items="${list}" var="item">
-
+		
 			<div class="card">
 			<c:choose>
 				<%-- 購入されていない --%>
 				<c:when test="${empty item.purchaseDay}">
-					<img src="images/sample.png" alt="画像"><br>
+					<img src="images/${item.categoryName}.png" alt="画像"><br>
 				</c:when>
 				<%-- 購入されている --%>
 				<c:otherwise>
@@ -48,7 +50,7 @@
 		</c:forEach>
 	</div>
 	
-	<p><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a></p>
+	<a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a>
 
 </body>
 </html>
