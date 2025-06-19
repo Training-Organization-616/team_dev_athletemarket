@@ -26,7 +26,7 @@
 <input type="text" name="tel" placeholder="電話番号">
 <br>
 
-<input type="DATE" name="birth_day" placeholder="生年月日">
+生年月日：<input type="DATE" name="birth_day" placeholder="生年月日">
 <br>
 
 <input type="email" name="email" placeholder="メールアドレス">
@@ -41,6 +41,8 @@
 <button>登録</button>
 
 </form>
+
+<p><a href = "/team_dev_athletemarket/LoginServlet">ログイン画面</a></p>
 
 </body>
 </html>

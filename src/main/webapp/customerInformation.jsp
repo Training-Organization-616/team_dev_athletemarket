@@ -13,17 +13,17 @@
 
 <form action="/team_dev_athletemarket/UserServlet?action=updatePage" method="post">
 
-<p>名前: ${name}</p>
+<p>名前: ${loginUser.name}</p>
 
-<p>住所: ${address}</p>
+<p>住所: ${loginUser.address}</p>
 
-<p>電話番号: ${tel}</p>
+<p>電話番号: ${loginUser.tel}</p>
 
-<p>生年月日: ${birth_day}</p>
+<p>生年月日: ${loginUser.birthDay}</p>
 
-<p>メールアドレス: ${email}</p>
+<p>メールアドレス: ${loginUser.email}</p>
 
-<p>入会年月： ${start_day}</p>
+<p>入会年月： ${loginUser.startDay}</p>
 
 <button>変更</button>
 

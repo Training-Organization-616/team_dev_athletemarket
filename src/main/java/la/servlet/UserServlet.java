@@ -128,6 +128,7 @@ public class UserServlet extends HttpServlet {
 
 			if (session == null || session.getAttribute("email") == null) {
 				// セッションがない、またはログイン情報がない場合はログイン画面へリダイレクト
+				request.setAttribute("message", "ログインしてください");
 				gotoPage(request, response, "/login.jsp");
 				return;
 			}
@@ -173,22 +174,58 @@ public class UserServlet extends HttpServlet {
 			try {
 				// フォームから変更データを取得
 				int id = (int) session.getAttribute("id");
-				String name = request.getParameter("name").strip();
-				String address = request.getParameter("address").strip();
-				String tel = request.getParameter("tel").strip();
-				String birthDay = request.getParameter("birth_day").strip();
-				String email = request.getParameter("email").strip();
-				String password = request.getParameter("password").strip();
+				String name = request.getParameter("name");
+				name = (name != null) ? name.strip() : "";
+
+				String address = request.getParameter("address");
+				address = (address != null) ? address.strip() : "";
+
+				String tel = request.getParameter("tel");
+				tel = (tel != null) ? tel.strip() : "";
+
+				String birth_day = request.getParameter("birth_day");
+				birth_day = (birth_day != null) ? birth_day.strip() : "";
+
+				String email = request.getParameter("email");
+				email = (email != null) ? email.strip() : "";
+
+				String password = request.getParameter("password");
+				password = (password != null) ? password.strip() : "";
+
+				String passwordCheck = request.getParameter("passwordCheck");
+				passwordCheck = (passwordCheck != null) ? passwordCheck.strip() : "";
+				// 空白チェック
+
+				if (name == null || name.isEmpty()
+						|| address == null || address.isEmpty()
+						|| tel == null || tel.isEmpty()
+						|| birth_day == null || birth_day.isEmpty()
+						|| email == null || email.isEmpty()
+						|| password == null || password.isEmpty()
+						|| passwordCheck == null || passwordCheck.isEmpty()) {
+					// 未入力チェック
+					request.setAttribute("message", "未入力の情報があります");
+					gotoPage(request, response, "/registUser.jsp");
+					// エラーメッセージを出力して新規登録画面に戻る
+					return;
+				}
+
+				if (!password.equals(passwordCheck)) {
+					// パスワードと確認用パスワード一致チェック
+					request.setAttribute("message", "パスワードが一致しません");
+					gotoPage(request, response, "/registUser.jsp");
+					return;
+				}
 
 				// DAOを使ってデータベースの情報を更新
 				UserDAO dao = new UserDAO();
-				dao.updateUser(id, name, address, tel, birthDay, email, password);
+				dao.updateUser(id, name, address, tel, birth_day, email, password);
 
 				// セッション情報を更新
 				session.setAttribute("name", name);
 				session.setAttribute("address", address);
 				session.setAttribute("tel", tel);
-				session.setAttribute("birthDay", birthDay);
+				session.setAttribute("birth_day", birth_day);
 				session.setAttribute("email", email);
 				session.setAttribute("password", password);
 

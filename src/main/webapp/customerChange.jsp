@@ -17,19 +17,19 @@
 <!--エラーメッセージを出力-->
 </c:if>
 
-<input type="text" name="name" placeholder="名前">
+<input type="text" name="name" placeholder="名前" value="${loginUser.name}">
 <br>
 
-<input type="text" name="address" placeholder="住所">
+<input type="text" name="address" placeholder="住所" value="${loginUser.address }">
 <br>
 
-<input type="text" name="tel" placeholder="電話番号">
+<input type="text" name="tel" placeholder="電話番号" value="${loginUser.tel }">
 <br>
 
-<input type="DATE" name="birth_day" placeholder="生年月日">
+<input type="DATE" name="birth_day" placeholder="生年月日" value="${loginUser.birthDay }">
 <br>
 
-<input type="email" name="email" placeholder="メールアドレス">
+<input type="email" name="email" placeholder="メールアドレス" value="${loginUser.email }">
 <br>
 
 <input type="password" name="password" placeholder="パスワード">
