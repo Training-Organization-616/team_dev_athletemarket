@@ -168,49 +168,4 @@ public class AdminDAO {
 			throw new DAOException("レコードの取得に失敗しました。");
 		}
 	}
-
-	public CustomerBean findById(String id)
-			throws DAOException {
-		// SQL文の作成
-		String sql = "select * from customers WHERE id = ? and user_type = 2 ";
-
-		try (// データベースへの接続
-				Connection con = DriverManager.getConnection(url, user, pass);
-				// PreparedStatementオブジェクトの取得
-				PreparedStatement st = con.prepareStatement(sql);) {
-			// プレースホルダの設定
-			st.setInt(1, Integer.parseInt(id));
-
-			try (// SQLの実行
-					ResultSet rs = st.executeQuery();) {
-				// 結果の取得および表示
-				rs.next();
-				int id2 = rs.getInt("id");
-				String name2 = rs.getString("name");
-				String address = rs.getString("address");
-				String tel = rs.getString("tel");
-				Date birthDay1 = rs.getDate("birth_day");
-				String birthDay = birthDay1.toString();
-				String email = rs.getString("email");
-				String password = rs.getString("password");
-				Date startDay1 = rs.getDate("start_day");
-				String startDay = startDay1.toString();
-				int userType = rs.getInt("user_type");
-
-				//取得したカテゴリー情報をCategoryBeanのコンストラクタを使用してオブジェクトを生成
-				CustomerBean bean = new CustomerBean(id2, name2, address, tel, birthDay, email, password, startDay,
-						userType);
-				//生成したオブジェクトをlistに追加（このlistは呼び出し元のサーブレットに返却する）
-				// 商品一覧をListとして返す
-
-				return bean;
-			} catch (SQLException e) {
-				e.printStackTrace();
-				throw new DAOException("レコードの取得に失敗しました。");
-			}
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new DAOException("レコードの取得に失敗しました。");
-		}
-	}
 }

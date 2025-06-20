@@ -69,6 +69,13 @@ public class ItemServlet extends HttpServlet {
 				// メモ
 				String memo = request.getParameter("memo");
 
+				//名前に空白（スペース）のみが入力された場合の処理
+				name = name.strip();
+				if (name == null || name.length() == 0) {
+					request.setAttribute("failure", "未入力の情報があります");
+					gotoPage(request, response, "registItem.jsp");
+				}
+
 				// DAOインスタンス生成
 				ItemDAO dao = new ItemDAO();
 

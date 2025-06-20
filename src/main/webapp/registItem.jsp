@@ -44,7 +44,7 @@
 					
 						<th>値段：</th>
 						<td>
-						<input type="number" name="price" id="price" required>
+						<input type="number" name="price" id="price" min="1" required>
 						</td>
 							
 					</tr>
