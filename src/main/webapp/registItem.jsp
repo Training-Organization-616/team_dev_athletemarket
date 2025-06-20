@@ -24,19 +24,19 @@
 						<th>カテゴリー：</th>
 						<td>
 						<select name="category_id" id="category">
-						<option value="1" selected>硬式野球</option>
-						<option value="2">軟式野球</option>
-						<option value="3">サッカー</option>
-						<option value="4">バスケ</option>
-						<option value="5">バレー</option>
-						<option value="6">ハンドボール</option>
-						<option value="7">硬式テニス</option>
-						<option value="8">軟式テニス</option>
-						<option value="9">ゴルフ</option>
-						<option value="10">卓球</option>
-						<option value="11">バドミントン</option>
-						<option value="12">陸上</option>
-						<option value="13">その他</option>
+						<option value="1" ${category_id == 1 ? "selected" : ""}>硬式野球</option>
+						<option value="2" ${category_id == 2 ? "selected" : ""}>軟式野球</option>
+						<option value="3" ${category_id == 3 ? "selected" : ""}>サッカー</option>
+						<option value="4" ${category_id == 4 ? "selected" : ""}>バスケ</option>
+						<option value="5" ${category_id == 5 ? "selected" : ""}>バレー</option>
+						<option value="6" ${category_id == 6 ? "selected" : ""}>ハンドボール</option>
+						<option value="7" ${category_id == 7 ? "selected" : ""}>硬式テニス</option>
+						<option value="8" ${category_id == 8 ? "selected" : ""}>軟式テニス</option>
+						<option value="9" ${category_id == 9 ? "selected" : ""}>ゴルフ</option>
+						<option value="10" ${category_id == 10 ? "selected" : ""}>卓球</option>
+						<option value="11" ${category_id == 11 ? "selected" : ""}>バドミントン</option>
+						<option value="12" ${category_id == 12 ? "selected" : ""}>陸上</option>
+						<option value="13" ${category_id == 13 ? "selected" : ""}>その他</option>
 						</select>
 						</td>
 					</tr>

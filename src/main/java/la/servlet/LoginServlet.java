@@ -69,12 +69,18 @@ public class LoginServlet extends HttpServlet {
 				if (bean != null) {
 					//データが入っているbean内の"user_type"において、管理者用のログインをuser_type==1、一般会員用のログインをuser_type==2に設定したい。
 					//管理者用のログインをuser_type==1
+
+					// ログインした顧客情報をセッションに保存
+					session.setAttribute("loginUser", bean);
+
+					// 管理者
 					if (bean.getUserType() == 1) {
-						session.setAttribute("loginUser", bean);
+						//session.setAttribute("loginUser", bean);
 						response.sendRedirect("AdminServlet");
 
+						// 一般ユーザー
 					} else if (bean.getUserType() == 2) {
-						session.setAttribute("loginUser", bean);
+						//session.setAttribute("loginUser", bean);
 						response.sendRedirect("ItemServlet");
 					}
 
@@ -112,12 +118,29 @@ public class LoginServlet extends HttpServlet {
 			} else if (action.equals("logout")) {
 				// 3.actionパラメータがlogoutの場合はログアウト処理
 
-				// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
-				//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
-				session.removeAttribute("loginUser");
+				// セッションスコープから値を取り出す
+				CustomerBean bean = (CustomerBean) session.getAttribute("loginUser");
 
-				// ログイン画面を表示
-				response.sendRedirect("ItemServlet");
+				// 管理者
+				if (bean.getUserType() == 1) {
+
+					// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
+					//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
+					session.removeAttribute("loginUser");
+					// ログイン画面を表示
+					response.sendRedirect("LoginServlet");
+
+					// 一般ユーザー
+				} else if (bean.getUserType() == 2) {
+
+					// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
+					//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
+					session.removeAttribute("loginUser");
+					// 商品一覧を表示
+					response.sendRedirect("ItemServlet");
+
+				}
+
 			}
 
 		} catch (Exception e) {

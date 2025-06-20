@@ -55,6 +55,8 @@ public class ItemServlet extends HttpServlet {
 					request.setAttribute("message", "ログインしてください");
 					gotoPage(request, response, "/login.jsp");
 				}
+
+				// 初期選択用
 				gotoPage(request, response, "/registItem.jsp");
 
 				// 出品処理をDAOで実行
@@ -73,6 +75,8 @@ public class ItemServlet extends HttpServlet {
 				name = name.strip();
 				if (name == null || name.length() == 0) {
 					request.setAttribute("failure", "未入力の情報があります");
+					// 選択したカテゴリー保持する
+					request.setAttribute("category_id", categoryId);
 					gotoPage(request, response, "registItem.jsp");
 				}
 
