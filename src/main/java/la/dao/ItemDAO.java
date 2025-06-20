@@ -83,11 +83,6 @@ public class ItemDAO {
 			ResultSet rs = st.executeQuery();
 			List<ListingBean> list = new ArrayList<ListingBean>();
 
-			// データなし
-			if (!rs.next()) {
-				list = null;
-			}
-
 			// 結果の取得
 			while (rs.next()) {
 
@@ -211,6 +206,26 @@ public class ItemDAO {
 			throw new DAOException("購入処理の操作に失敗しました。");
 		}
 
+	}
+
+	//退会、強制退会後の商品削除処理の追加
+	public int deleteUserItems(int id) throws DAOException {
+		// SQL文の作成
+		String sql = "delete from items where customer_id= ? ";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			// 商品名と値段の指定
+			st.setInt(1, id);
+			// SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}
 	}
 
 }

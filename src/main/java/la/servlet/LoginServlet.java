@@ -117,7 +117,7 @@ public class LoginServlet extends HttpServlet {
 				session.removeAttribute("loginUser");
 
 				// ログイン画面を表示
-				gotoPage(request, response, "/login.jsp");
+				response.sendRedirect("ItemServlet");
 			}
 
 		} catch (Exception e) {

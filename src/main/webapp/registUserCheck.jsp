@@ -33,7 +33,7 @@
 
 <p>以上の内容で登録します。よろしいですか？</p>
 
-<button>確定</button>
+<button onclick="clickEvent()">確定</button>
 
 </form>
 
@@ -42,6 +42,12 @@
 <button>戻る</button>
 
 </form>
+
+<script>
+	function clickEvent() {
+    	alert('新規登録が完了しました');
+	}
+</script>
 
 </body>
 </html>

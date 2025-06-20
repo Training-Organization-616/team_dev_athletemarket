@@ -42,5 +42,11 @@
 
 </form>
 
+<form action="/team_dev_athletemarket/ItemServlet" method="get">
+
+<button>戻る</button>
+
+</form>
+
 </body>
 </html>

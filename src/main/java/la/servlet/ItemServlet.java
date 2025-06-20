@@ -43,12 +43,18 @@ public class ItemServlet extends HttpServlet {
 				ItemDAO dao = new ItemDAO();
 
 				// 最新の情報を取得
+
 				request.setAttribute("list", dao.findAllItems());
 				gotoPage(request, response, "/showItems.jsp");
 
 				// 商品登録画面に遷移
 			} else if (action.equals("listing")) {
 
+				//ログインしているかの判断
+				if (bean == null) {
+					request.setAttribute("message", "ログインしてください");
+					gotoPage(request, response, "/login.jsp");
+				}
 				gotoPage(request, response, "/registItem.jsp");
 
 				// 出品処理をDAOで実行
@@ -89,6 +95,12 @@ public class ItemServlet extends HttpServlet {
 				// 商品の購入処理
 			} else if (action.equals("purchase")) {
 
+				//ログインしているかの判断
+				if (bean == null) {
+					request.setAttribute("message", "ログインしてください");
+					gotoPage(request, response, "/login.jsp");
+				}
+
 				// 商品IDを取得
 				int id = Integer.parseInt(request.getParameter("id"));
 
@@ -105,6 +117,12 @@ public class ItemServlet extends HttpServlet {
 				// マイページ表示（自分の出品商品を確認）
 			} else if (action.equals("mypage")) {
 
+				//ログインしているかの判断
+				if (bean == null) {
+					request.setAttribute("message", "ログインしてください");
+					gotoPage(request, response, "/login.jsp");
+				}
+
 				// DAOインスタンス生成
 				ItemDAO dao = new ItemDAO();
 
@@ -112,7 +130,7 @@ public class ItemServlet extends HttpServlet {
 				List<ListingBean> list = dao.findByCustomerId(bean.getId());
 
 				// 結果がnull
-				if (list == null) {
+				if (list == null || list.size() == 0) {
 
 					// 最新の情報を取得
 					request.setAttribute("status", "出品状態の商品が存在しません");

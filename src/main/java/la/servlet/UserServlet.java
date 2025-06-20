@@ -12,6 +12,7 @@ import javax.servlet.http.HttpSession;
 
 import la.bean.CustomerBean;
 import la.dao.DAOException;
+import la.dao.ItemDAO;
 import la.dao.UserDAO;
 
 @WebServlet("/UserServlet")
@@ -118,6 +119,10 @@ public class UserServlet extends HttpServlet {
 				dao.registUser(name, address, tel, birth_day, email, password);
 
 				// ログイン画面へリダイレクト
+
+				//
+				request.setAttribute("message", "アカウント新規登録が完了しました");
+
 				gotoPage(request, response, "/login.jsp");
 			} catch (DAOException e) {
 				e.printStackTrace();
@@ -127,11 +132,10 @@ public class UserServlet extends HttpServlet {
 		} else if (action.equals("update")) {
 			// 会員情報画面
 
-			if (session == null) {
-				// セッションがない、またはログイン情報がない場合はログイン画面へリダイレクト
+			//ログインしているかの判断
+			if (session.getAttribute("loginUser") == null) {
 				request.setAttribute("message", "ログインしてください");
 				gotoPage(request, response, "/login.jsp");
-				return;
 			}
 
 			// セッションからユーザー情報を取得してリクエストスコープに設定
@@ -268,8 +272,12 @@ public class UserServlet extends HttpServlet {
 				CustomerBean bean = (CustomerBean) session.getAttribute("loginUser");
 
 				// DAOを利用して退会処理を実行
-				UserDAO dao = new UserDAO();
-				dao.withdrawalUser(bean.getId());
+				UserDAO dao1 = new UserDAO();
+				dao1.withdrawalUser(bean.getId());
+
+				//退会したユーザーの商品削除処理の追加
+				ItemDAO dao2 = new ItemDAO();
+				dao2.deleteUserItems(bean.getId());
 
 				// セッションを破棄
 				session.invalidate();

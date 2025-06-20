@@ -13,6 +13,7 @@
 	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
 	<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a>  <a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
 	<p>
+	<h1>マイページ</h1>
 	<div class="btns">
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>
@@ -24,8 +25,9 @@
 		</form>
 		</div>
 	</p>
-	
-	<p class="status">${status}</p>
+	<c:if test="${status != null}">
+		<p class="status">${status}</p>
+	</c:if>
 	
 	<div class="card-wrapper">
 		<c:forEach items="${list}" var="item">

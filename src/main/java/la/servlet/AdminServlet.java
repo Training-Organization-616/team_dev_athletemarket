@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import la.bean.CustomerBean;
 import la.dao.AdminDAO;
 import la.dao.DAOException;
+import la.dao.ItemDAO;
 
 /**
  * Servlet implementation class AdminServlet
@@ -60,6 +61,11 @@ public class AdminServlet extends HttpServlet {
 				CustomerBean bean = list.get(0);
 				dao.registBlackCustomer(bean.getId(), bean.getEmail());
 				dao.deleteCustomer(Integer.parseInt(id));
+
+				//強制退会させたユーザーの商品削除処理の追加
+				ItemDAO dao2 = new ItemDAO();
+				dao2.deleteUserItems(bean.getId());
+
 				List<CustomerBean> list2 = dao.findAllCustomer();
 				if (list2 == null || list2.size() == 0) {
 					request.setAttribute("message", "該当データが存在しません");

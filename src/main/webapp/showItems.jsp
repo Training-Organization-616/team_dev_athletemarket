@@ -10,8 +10,18 @@
 </head>
 <body>
 
-	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
-	<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>  <a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
+	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1> 
+	<c:choose>
+		<c:when test="${loginUser != null}">
+			<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
+			<a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
+		</c:when>
+		<c:otherwise>
+			<p>こんにちは、ゲストさん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
+			<a href="/team_dev_athletemarket/LoginServlet?action=">ログイン</a></p>
+		</c:otherwise>
+	</c:choose> 
+	
 	<p>
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>
