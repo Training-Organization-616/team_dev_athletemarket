@@ -22,6 +22,18 @@
 		</c:otherwise>
 	</c:choose> 
 	
+	<form action="/team_dev_athletemarket/ItemServlet_sort" method="get">
+    <select name="key" onchange="this.form.submit()">
+        <option value="" selected>-- 並び替えを選択 --</option>
+        <option value="low">価格の安い順</option>
+        <option value="high">価格の高い順</option>
+        <option value="new">新しい順</option>
+        <option value="old">古い順</option>
+    </select>
+    <input type="hidden" name="action" value="sort">
+	</form>
+	
+	
 	<p>
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>
@@ -33,7 +45,7 @@
 		<c:forEach items="${list}" var="item">
 
 			<div class="card">
-				<img src="images/${item.categoryName}.png" alt="画像"> <a
+				<img src="images/${item.imageName}" alt="画像"> <a
 					href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
 				カテゴリー：${item.categoryName}<br> 出品者名：${item.sellerName}<br>
 				値段：${item.price}円<br>

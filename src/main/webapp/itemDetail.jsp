@@ -12,7 +12,7 @@
 
 	<h3>${bean.itemName}</h3>
 
-	<img src="images/${bean.categoryName}.png">
+	<img src="images/${bean.imageName}">
 	<br> カテゴリー：${bean.categoryName}
 	<br>
 	<br> 出品者名：${bean.sellerName}

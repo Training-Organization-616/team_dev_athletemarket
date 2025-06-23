@@ -36,7 +36,7 @@
 			<c:choose>
 				<%-- 購入されていない --%>
 				<c:when test="${empty item.purchaseDay}">
-					<img src="images/${item.categoryName}.png" alt="画像"><br>
+					<img src="images/${item.imageName}" alt="画像"><br>
 				</c:when>
 				<%-- 購入されている --%>
 				<c:otherwise>
