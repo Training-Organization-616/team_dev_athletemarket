@@ -8,7 +8,7 @@ public class ListingBean {
 	private String sellerName;
 	private int purchaseId;
 	private String categoryName;
-	private int imageName;
+	private String imageName;
 	private String itemName;
 	private int price;
 	private String purchaseDay;
@@ -107,11 +107,11 @@ public class ListingBean {
 		this.purchaseId = purchaseId;
 	}
 
-	public int getImageName() {
+	public String getImageName() {
 		return imageName;
 	}
 
-	public void setImageName(int imageName) {
+	public void setImageName(String imageName) {
 		this.imageName = imageName;
 	}
 
