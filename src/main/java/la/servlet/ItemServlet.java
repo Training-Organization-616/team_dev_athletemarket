@@ -15,6 +15,7 @@ import la.bean.CustomerBean;
 import la.bean.ListingBean;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
+import la.dao.ItemDAO_kawasaki;
 
 @WebServlet("/ItemServlet")
 public class ItemServlet extends HttpServlet {
@@ -118,8 +119,8 @@ public class ItemServlet extends HttpServlet {
 				// DAOインスタンス生成
 				ItemDAO dao = new ItemDAO();
 
-				// 購入処理(商品ID取得)
-				dao.purchaseItem(id);
+				// 購入処理(商品IDと購入者ID)
+				dao.purchaseItem(bean.getId(), id);
 
 				// 最新の情報を取得
 				request.setAttribute("list", dao.findAllItems());
@@ -154,6 +155,15 @@ public class ItemServlet extends HttpServlet {
 					gotoPage(request, response, "/mypage.jsp");
 
 				}
+
+				// 二次開発追加分（購入履歴）
+			} else if (action.equals("history")) {
+
+				ItemDAO_kawasaki dao = new ItemDAO_kawasaki();
+
+				// 購入履歴をリクエストスコープへ
+				request.setAttribute("list", dao.findPurchaseHistory(bean.getId()));
+				gotoPage(request, response, "/purchaseHistory.jsp");
 
 			} else {
 

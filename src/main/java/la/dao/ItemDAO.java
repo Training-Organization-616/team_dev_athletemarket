@@ -109,6 +109,47 @@ public class ItemDAO {
 
 	}
 
+	// 購入履歴(直近5件)
+	public List<ListingBean> findPurchaseHistory(int customerId) throws DAOException {
+
+		// SQL文の作成(購入日の降順で上位5件)
+		String sql = "SELECT id, image_name, item_name, category_name, seller_name, price, purchase_day FROM listing WHERE purchase_day IS NOT NULL AND purchaser_id = ?\n"
+				+ "ORDER BY purchase_day DESC LIMIT 5";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+
+			st.setInt(1, customerId);
+
+			// SQLの実行
+			ResultSet rs = st.executeQuery();
+			List<ListingBean> list = new ArrayList<ListingBean>();
+
+			// 結果の取得
+			while (rs.next()) {
+
+				ListingBean bean = new ListingBean();
+				bean.setId(rs.getInt("id"));
+				bean.setImageName(rs.getString("image_name"));
+				bean.setItemName(rs.getString("item_name"));
+				bean.setCategoryName(rs.getString("category_name"));
+				bean.setSellerName(rs.getString("seller_name"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setPurchaseDay(rs.getString("purchase_day"));
+				list.add(bean);
+
+			}
+			// 商品一覧をListとして返す
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("出品商品の取得に失敗しました。");
+		}
+
+	}
+
 	// 商品詳細の取得
 	public ListingBean findById(int id) throws DAOException {
 
@@ -188,10 +229,10 @@ public class ItemDAO {
 	}
 
 	// 商品の購入処理
-	public int purchaseItem(int id) throws DAOException {
+	public int purchaseItem(int customerId, int itemId) throws DAOException {
 
 		// SQL文の作成
-		String sql = "UPDATE items SET purchase_day = CURRENT_DATE WHERE id = ?";
+		String sql = "UPDATE items SET purchaser_id = ?, purchase_day = CURRENT_DATE WHERE id = ?";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
@@ -199,7 +240,8 @@ public class ItemDAO {
 				PreparedStatement st = con.prepareStatement(sql);) {
 
 			// エスケープ
-			st.setInt(1, id);
+			st.setInt(1, customerId);
+			st.setInt(2, itemId);
 
 			// SQLの実行
 			int rows = st.executeUpdate();
