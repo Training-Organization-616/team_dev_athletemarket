@@ -45,7 +45,7 @@
 			</c:choose>
 				 <a href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
 				カテゴリー：${item.categoryName}<br> 
-				出品者名：${item.customerName}<br>
+				出品者名：${item.sellerName}<br>
 				値段：${item.price}円<br>
 			</div>
 

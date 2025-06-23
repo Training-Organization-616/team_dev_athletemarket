@@ -35,7 +35,7 @@
 			<div class="card">
 				<img src="images/${item.categoryName}.png" alt="画像"> <a
 					href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
-				カテゴリー：${item.categoryName}<br> 出品者名：${item.customerName}<br>
+				カテゴリー：${item.categoryName}<br> 出品者名：${item.sellerName}<br>
 				値段：${item.price}円<br>
 			</div>
 

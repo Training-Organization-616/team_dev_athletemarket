@@ -47,8 +47,8 @@ public class ItemDAO {
 
 				ListingBean bean = new ListingBean();
 				bean.setId(rs.getInt("id"));
-				bean.setCustomerId(rs.getInt("customer_id"));
-				bean.setCustomerName(rs.getString("customer_name"));
+				bean.setSellerId(rs.getInt("seller_id"));
+				bean.setSellerName(rs.getString("seller_name"));
 				bean.setCategoryName(rs.getString("category_name"));
 				bean.setItemName(rs.getString("item_name"));
 				bean.setPrice(rs.getInt("price"));
@@ -69,7 +69,7 @@ public class ItemDAO {
 	public List<ListingBean> findByCustomerId(int customerId) throws DAOException {
 
 		// SQL文の作成
-		String sql = "SELECT * FROM listing WHERE customer_id = ?";
+		String sql = "SELECT * FROM listing WHERE seller_id = ?";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
@@ -88,8 +88,8 @@ public class ItemDAO {
 
 				ListingBean bean = new ListingBean();
 				bean.setId(rs.getInt("id"));
-				bean.setCustomerId(rs.getInt("customer_id"));
-				bean.setCustomerName(rs.getString("customer_name"));
+				bean.setSellerId(rs.getInt("seller_id"));
+				bean.setSellerName(rs.getString("seller_name"));
 				bean.setCategoryName(rs.getString("category_name"));
 				bean.setItemName(rs.getString("item_name"));
 				bean.setPrice(rs.getInt("price"));
@@ -129,8 +129,8 @@ public class ItemDAO {
 			if (rs.next()) {
 
 				bean.setId(rs.getInt("id"));
-				bean.setCustomerId(rs.getInt("customer_id"));
-				bean.setCustomerName(rs.getString("customer_name"));
+				bean.setSellerId(rs.getInt("seller_id"));
+				bean.setSellerName(rs.getString("seller_name"));
 				bean.setCategoryName(rs.getString("category_name"));
 				bean.setItemName(rs.getString("item_name"));
 				bean.setPrice(rs.getInt("price"));
@@ -148,15 +148,15 @@ public class ItemDAO {
 	}
 
 	// 商品の登録
-	public int registItem(int customerId, int categoryId, String name, int price, String memo)
+	public int registItem(int sellerId, int categoryId, String name, int price, String memo)
 			throws DAOException {
 
 		// SQL文の作成(メモなしならそのまま)
-		String sql = "INSERT INTO items(customer_id, category_id, name, price) VALUES(?, ?, ?, ?)";
+		String sql = "INSERT INTO items(seller_id, category_id, name, price) VALUES(?, ?, ?, ?)";
 
 		// メモあり
 		if (memo.length() != 0) {
-			sql = "INSERT INTO items(customer_id, category_id, name, price, memo) VALUES(?, ?, ?, ?, ?)";
+			sql = "INSERT INTO items(seller_id, category_id, name, price, memo) VALUES(?, ?, ?, ?, ?)";
 		}
 
 		try (// データベースへの接続
@@ -165,7 +165,7 @@ public class ItemDAO {
 				PreparedStatement st = con.prepareStatement(sql);) {
 
 			// エスケープ
-			st.setInt(1, customerId);
+			st.setInt(1, sellerId);
 			st.setInt(2, categoryId);
 			st.setString(3, name);
 			st.setInt(4, price);
@@ -211,7 +211,7 @@ public class ItemDAO {
 	//退会、強制退会後の商品削除処理の追加
 	public int deleteUserItems(int id) throws DAOException {
 		// SQL文の作成
-		String sql = "delete from items where customer_id= ? ";
+		String sql = "delete from items where seller_id= ? ";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);

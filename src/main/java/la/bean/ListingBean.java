@@ -4,9 +4,11 @@ public class ListingBean {
 
 	// フィールド
 	private int id;
-	private int customerId;
-	private String customerName;
+	private int sellerId;
+	private String sellerName;
+	private int purchaseId;
 	private String categoryName;
+	private int imageName;
 	private String itemName;
 	private int price;
 	private String purchaseDay;
@@ -17,12 +19,13 @@ public class ListingBean {
 
 	}
 
-	public ListingBean(int id, int customerId, String customerName, String categoryName, String itemName, int price,
+	public ListingBean(int id, int sellerId, String sellerName, String categoryName, String imageName, String itemName,
+			int price,
 			String purchaseDay, String memo) {
 
 		this.id = id;
-		this.customerId = customerId;
-		this.customerName = customerName;
+		this.sellerId = sellerId;
+		this.sellerName = sellerName;
 		this.categoryName = categoryName;
 		this.itemName = itemName;
 		this.price = price;
@@ -38,22 +41,6 @@ public class ListingBean {
 
 	public void setId(int id) {
 		this.id = id;
-	}
-
-	public int getCustomerId() {
-		return customerId;
-	}
-
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
-	}
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
 	}
 
 	public String getCategoryName() {
@@ -94,6 +81,38 @@ public class ListingBean {
 
 	public void setMemo(String memo) {
 		this.memo = memo;
+	}
+
+	public int getSellerId() {
+		return sellerId;
+	}
+
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public String getSellerName() {
+		return sellerName;
+	}
+
+	public void setSellerName(String sellerName) {
+		this.sellerName = sellerName;
+	}
+
+	public int getPurchaseId() {
+		return purchaseId;
+	}
+
+	public void setPurchaseId(int purchaseId) {
+		this.purchaseId = purchaseId;
+	}
+
+	public int getImageName() {
+		return imageName;
+	}
+
+	public void setImageName(int imageName) {
+		this.imageName = imageName;
 	}
 
 }

@@ -4,7 +4,14 @@ public class ItemBean {
 
 	// フィールド
 	private int id;
-	private int customerId;
+
+	//　修正前
+	//	private int customerId;
+
+	//修正後
+	private int sellerId;
+	private int purchaseId;
+
 	private int categoryId;
 	private String name;
 	private int price;
@@ -16,11 +23,15 @@ public class ItemBean {
 	public ItemBean() {
 	}
 
-	public ItemBean(int id, int customerId, int categoryId, String name, int price, String sellDay, String purchaseDay,
+	//修正後
+	public ItemBean(int id, int sellerId, int purchaseId, int categoryId, String name, int price, String sellDay,
+			String purchaseDay,
 			String memo) {
 
 		this.id = id;
-		this.customerId = customerId;
+		this.sellerId = sellerId;
+		this.purchaseId = purchaseId;
+		this.categoryId = categoryId;
 		this.name = name;
 		this.price = price;
 		this.sellDay = sellDay;
@@ -38,12 +49,20 @@ public class ItemBean {
 		this.id = id;
 	}
 
-	public int getCustomerId() {
-		return customerId;
+	public int getSellerId() {
+		return sellerId;
 	}
 
-	public void setCustomerId(int customerId) {
-		this.customerId = customerId;
+	public void setSellerId(int sellerId) {
+		this.sellerId = sellerId;
+	}
+
+	public int getPurchaseId() {
+		return purchaseId;
+	}
+
+	public void setPurchaseId(int purchaseId) {
+		this.purchaseId = purchaseId;
 	}
 
 	public int getCategoryId() {
