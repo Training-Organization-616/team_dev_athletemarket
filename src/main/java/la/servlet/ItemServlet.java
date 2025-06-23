@@ -164,6 +164,34 @@ public class ItemServlet extends HttpServlet {
 				request.setAttribute("list", dao.findPurchaseHistory(bean.getId()));
 				gotoPage(request, response, "/purchaseHistory.jsp");
 
+			} else if (action.equals("sort")) {
+				String key = request.getParameter("key");
+
+				// 並び替え処理
+
+				ItemDAO dao_sort = new ItemDAO();
+
+				// リクエストスコープに設定
+				request.setAttribute("key", key);
+				request.setAttribute("list", dao_sort.sortItems(key));
+
+				// JSPにフォワード
+				gotoPage(request, response, "/showItems.jsp");
+
+			} else if (action.equals("mypageSort")) {
+
+				String key = request.getParameter("key");
+
+				// 並び替え処理
+
+				ItemDAO dao_sort = new ItemDAO();
+
+				// リクエストスコープに設定
+				request.setAttribute("key", key);
+				request.setAttribute("list", dao_sort.mypageSortItems(bean.getId(), key));
+
+				// JSPにフォワード
+				gotoPage(request, response, "/mypage.jsp");
 			} else {
 
 				request.setAttribute("message", "正しく操作してください。");

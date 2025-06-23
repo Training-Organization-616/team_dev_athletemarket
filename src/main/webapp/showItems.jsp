@@ -24,7 +24,7 @@
 		</c:otherwise>
 	</c:choose> 
 	
-<form action="/team_dev_athletemarket/ItemServletsort" method="get">
+<form action="/team_dev_athletemarket/ItemServlet" method="get">
     <select name="key" onchange="this.form.submit()">
         <option value=""  selected disabled>-- 並び替えを選択 --</option>
         <option value="low" ${key == 'low' ? 'selected' : ''}>価格の安い順</option>
