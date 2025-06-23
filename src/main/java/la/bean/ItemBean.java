@@ -49,6 +49,15 @@ public class ItemBean {
 		this.id = id;
 	}
 
+	//
+	//	public int getCustomerId() {
+	//		return customerId;
+	//	}
+	//
+	//	public void setCustomerId(int customerId) {
+	//		this.customerId = customerId;
+	//	}
+
 	public int getSellerId() {
 		return sellerId;
 	}
