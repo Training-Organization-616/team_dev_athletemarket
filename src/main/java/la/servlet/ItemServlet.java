@@ -15,7 +15,6 @@ import la.bean.CustomerBean;
 import la.bean.ListingBean;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
-import la.dao.ItemDAO_kawasaki;
 
 @WebServlet("/ItemServlet")
 public class ItemServlet extends HttpServlet {
@@ -159,7 +158,7 @@ public class ItemServlet extends HttpServlet {
 				// 二次開発追加分（購入履歴）
 			} else if (action.equals("history")) {
 
-				ItemDAO_kawasaki dao = new ItemDAO_kawasaki();
+				ItemDAO dao = new ItemDAO();
 
 				// 購入履歴をリクエストスコープへ
 				request.setAttribute("list", dao.findPurchaseHistory(bean.getId()));
