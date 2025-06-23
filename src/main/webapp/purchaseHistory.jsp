@@ -35,6 +35,10 @@
 		</form>
 	</p>
 	
+	<c:if test="${status != null}">
+		<p class="status">${status}</p>
+	</c:if>
+	
 	<div class="card-wrapper">
 		<c:forEach items="${list}" var="item">
 
