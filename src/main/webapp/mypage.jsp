@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-// カンマ表示用ライブラリ
+<!--カンマ表示用ライブラリ-->
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
@@ -16,6 +16,7 @@
 	<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a> <a href="/team_dev_athletemarket/ItemServlet?action=history">購入履歴</a>  <a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
 	<p>
 	<h1>マイページ</h1>
+	
 	<form action="/team_dev_athletemarket/ItemServletsort" method="get">
     <select name="key" onchange="this.form.submit()">
         <option value=""  selected disabled>-- 並び替えを選択 --</option>
@@ -24,8 +25,9 @@
         <option value="new" ${key == 'new' ? 'selected' : ''}>新しい順</option>
         <option value="old" ${key == 'old' ? 'selected' : ''}>古い順</option>
     </select>
-    <input type="hidden" name="action" value="sort">
-</form>
+    <input type="hidden" name="action" value="mypageSort">
+	</form>
+
 	<div class="btns">
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>

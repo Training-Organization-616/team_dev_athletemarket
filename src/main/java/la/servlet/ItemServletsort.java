@@ -120,7 +120,7 @@ public class ItemServletsort extends HttpServlet {
 				ItemDAO dao = new ItemDAO();
 
 				// 購入処理(商品ID取得)
-				dao.purchaseItem(id);
+				dao.purchaseItem(bean.getId(), id);
 
 				// 最新の情報を取得
 				request.setAttribute("list", dao.findAllItems());
@@ -156,7 +156,7 @@ public class ItemServletsort extends HttpServlet {
 
 				}
 				// 並び替え表示
-			} else if ("sort".equals(action)) {
+			} else if (action.equals("sort")) {
 				String key = request.getParameter("key");
 
 				// 並び替え処理
@@ -169,6 +169,21 @@ public class ItemServletsort extends HttpServlet {
 
 				// JSPにフォワード
 				gotoPage(request, response, "/showItems.jsp");
+
+			} else if (action.equals("mypageSort")) {
+
+				String key = request.getParameter("key");
+
+				// 並び替え処理
+
+				ItemDAOsort dao_sort = new ItemDAOsort();
+
+				// リクエストスコープに設定
+				request.setAttribute("key", key);
+				request.setAttribute("list", dao_sort.mypageSortItems(bean.getId(), key));
+
+				// JSPにフォワード
+				gotoPage(request, response, "/mypage.jsp");
 			} else {
 
 				request.setAttribute("message", "正しく操作してください。");

@@ -277,4 +277,58 @@ public class ItemDAOsort {
 		}
 	}
 
+	//並び替え処理
+	public List<ListingBean> mypageSortItems(int customerId, String key) throws DAOException {
+		// SQL文のベース作成
+		String sql = "SELECT * FROM listing WHERE seller_id = ? ";
+
+		// 並び替えキーに応じてORDER BY句を追加
+		switch (key) {
+		case "low":
+			sql += "ORDER BY price ASC"; // 価格の安い順
+			break;
+		case "high":
+			sql += "ORDER BY price DESC"; // 価格の高い順
+			break;
+		case "new":
+			sql += "ORDER BY sell_day DESC"; // 新しい順
+			break;
+		case "old":
+			sql += "ORDER BY sell_day ASC"; // 古い順
+			break;
+		default:
+			throw new DAOException("無効な並び替えキーが指定されました。");
+		}
+
+		try (Connection con = DriverManager.getConnection(url, user, pass);
+				PreparedStatement st = con.prepareStatement(sql)) {
+
+			// エスケープ
+			st.setInt(1, customerId);
+
+			ResultSet rs = st.executeQuery();
+			List<ListingBean> list = new ArrayList<>();
+
+			while (rs.next()) {
+				ListingBean bean = new ListingBean();
+				bean.setId(rs.getInt("id"));
+				bean.setId(rs.getInt("id"));
+				bean.setSellerId(rs.getInt("seller_id"));
+				bean.setSellerName(rs.getString("seller_name"));
+				bean.setCategoryName(rs.getString("category_name"));
+				bean.setImageName(rs.getString("image_name"));
+				bean.setItemName(rs.getString("item_name"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setPurchaseDay(rs.getString("purchase_day"));
+				bean.setMemo(rs.getString("memo"));
+				list.add(bean);
+			}
+
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("商品の取得に失敗しました。");
+		}
+	}
+
 }

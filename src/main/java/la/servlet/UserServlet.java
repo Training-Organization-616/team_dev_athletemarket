@@ -236,7 +236,8 @@ public class UserServlet extends HttpServlet {
 				session.setAttribute("email", email);
 				session.setAttribute("password", password);
 
-				gotoPage(request, response, "/showItems.jsp");
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/ItemServlet?action=");
+				dispatcher.forward(request, response);
 				// 商品一覧表示画面にリダイレクト
 			} catch (DAOException e) {
 				e.printStackTrace();
