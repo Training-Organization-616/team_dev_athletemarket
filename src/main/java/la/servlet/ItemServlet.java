@@ -158,6 +158,7 @@ public class ItemServlet extends HttpServlet {
 				// 二次開発追加分（購入履歴）
 			} else if (action.equals("history")) {
 
+				// 修正
 				ItemDAO dao = new ItemDAO();
 
 				// 購入履歴をリクエストスコープへ
