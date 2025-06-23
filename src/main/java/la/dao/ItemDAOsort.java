@@ -263,6 +263,7 @@ public class ItemDAOsort {
 				bean.setSellerId(rs.getInt("seller_id"));
 				bean.setSellerName(rs.getString("seller_name"));
 				bean.setCategoryName(rs.getString("category_name"));
+				bean.setImageName(rs.getString("image_name"));
 				bean.setItemName(rs.getString("item_name"));
 				bean.setPrice(rs.getInt("price"));
 				bean.setMemo(rs.getString("memo"));

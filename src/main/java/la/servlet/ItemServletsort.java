@@ -156,15 +156,18 @@ public class ItemServletsort extends HttpServlet {
 
 				}
 				// 並び替え表示
-			} else if (action.equals("sort")) {
+			} else if ("sort".equals(action)) {
 				String key = request.getParameter("key");
 
-				// DAOインスタンス生成
+				// 並び替え処理
+
 				ItemDAOsort dao_sort = new ItemDAOsort();
 
-				// 最新の情報を取得
-
+				// リクエストスコープに設定
+				request.setAttribute("key", key);
 				request.setAttribute("list", dao_sort.sortItems(key));
+
+				// JSPにフォワード
 				gotoPage(request, response, "/showItems.jsp");
 			} else {
 
