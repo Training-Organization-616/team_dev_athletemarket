@@ -32,8 +32,17 @@
 				<button>購入</button>
 			</form>	
 		</c:when>
-		<c:otherwise>
-		</c:otherwise>
+		<%-- 購入されていない、かつ出品したユーザー --%>
+		<c:when test="${empty bean.purchaseDay && loginUser.id == bean.sellerId}">
+			<form action="/team_dev_athletemarket/ItemServlet?action=edit" method="post">
+       		<button name="id" value="${bean.id}">変更</button>
+			</form>
+			<form action="/team_dev_athletemarket/ItemServlet?action=itemDelete" method="post" onsubmit="return beforeSubmit()">
+        	<button name="id" value="${bean.id}" id="btn" type="submit">削除</button>
+			</form>
+			</c:when>
+			<c:otherwise>
+			</c:otherwise>
 	</c:choose>
 
 	<p><a href="/team_dev_athletemarket/ItemServlet">商品一覧画面へ戻る</a></p>
@@ -49,6 +58,13 @@
 		var result = window.confirm("カテゴリー：${bean.categoryName}\n\n出品者名：${bean.sellerName}\n\n値段：${bean.price}円\n\nメモ(任意)：${bean.memo}\n\n" + "                           " + "以上の内容で購入します。よろしいですか？");
 		return result;
 		}
+	}
+	  function beforeSubmit() {
+		 if(window.confirm('本当に削除しますか？')) {
+		    return true;
+		 } else {
+		 return false;
+		 }
 	}
 </script>
 </html>

@@ -61,12 +61,37 @@
 				カテゴリー：${item.categoryName}<br> 
 				出品者名：${item.sellerName}<br>
     			値段：<fmt:formatNumber value="${item.price}" type="number"/>円<br>
+    			<c:choose>
+				<%-- 購入されていない --%>
+				<c:when test="${empty item.purchaseDay}">
+			    <form action="/team_dev_athletemarket/ItemServlet?action=edit" method="post">
+        		<button name="id" value="${item.id}">変更</button>
+				</form>
+				<form action="/team_dev_athletemarket/ItemServlet?action=itemDelete" method="post" onsubmit="return beforeSubmit()">
+        		<button name="id" value="${item.id}" id="btn" type="submit">削除</button>
+				</form>
+				</c:when>
+				<%-- 購入されている --%>
+				<c:otherwise>
+					
+				</c:otherwise>
+			</c:choose>
+    			
 			</div>
 
 		</c:forEach>
 	</div>
 	
 	<a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a>
-
+	
+		<script>
+  function beforeSubmit() {
+    if(window.confirm('本当に削除しますか？')) {
+      return true;
+    	} else {
+      	return false;
+    	}
+  	}
+	</script>
 </body>
 </html>

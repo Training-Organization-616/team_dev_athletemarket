@@ -159,11 +159,21 @@ public class ItemServlet extends HttpServlet {
 			} else if (action.equals("history")) {
 
 				ItemDAO dao = new ItemDAO();
+				// beanから会員IDを取得して検索
+				List<ListingBean> list = dao.findPurchaseHistory(bean.getId());
+				// 検索結果なし
+				if (list == null || list.size() == 0) {
 
-				// 購入履歴をリクエストスコープへ
-				request.setAttribute("list", dao.findPurchaseHistory(bean.getId()));
-				gotoPage(request, response, "/purchaseHistory.jsp");
+					// 最新の情報を取得
+					request.setAttribute("status", "購入履歴が存在しません");
+					gotoPage(request, response, "/purchaseHistory.jsp");
 
+				} else {
+
+					// 最新の情報を取得
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/purchaseHistory.jsp");
+				}
 			} else if (action.equals("sort")) {
 				String key = request.getParameter("key");
 
@@ -192,13 +202,97 @@ public class ItemServlet extends HttpServlet {
 
 				// JSPにフォワード
 				gotoPage(request, response, "/mypage.jsp");
+
+				//変更ボタンを押下
+			} else if (action.equals("edit")) {
+
+				// 商品IDを取得
+				int id = Integer.parseInt(request.getParameter("id"));
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 商品一覧から商品IDを取得
+				request.setAttribute("bean", dao.findById(id));
+				gotoPage(request, response, "/editItem.jsp");
+
+				//商品の変更
+			} else if (action.equals("editConfirm")) {
+				// 商品ID
+				int itemId = Integer.parseInt(request.getParameter("itemId"));
+
+				// カテゴリーID
+				int categoryId = Integer.parseInt(request.getParameter("category_id"));
+				// 商品名
+				String name = request.getParameter("name");
+				// 価格
+				int price = Integer.parseInt(request.getParameter("price"));
+				// メモ
+				String memo = request.getParameter("memo");
+
+				//名前に空白（スペース）のみが入力された場合の処理
+				name = name.strip();
+				if (name == null || name.length() == 0) {
+					request.setAttribute("failure", "未入力の情報があります");
+					// 選択したカテゴリー保持する
+					request.setAttribute("category_id", categoryId);
+					gotoPage(request, response, "editItem.jsp");
+				}
+
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 商品登録処理(会員IDは、セッション情報から)
+				dao.updateItem(itemId, categoryId, name, price, memo);
+
+				// beanから会員IDを取得して検索
+				List<ListingBean> list = dao.findByCustomerId(bean.getId());
+
+				// 結果がnull
+				if (list == null || list.size() == 0) {
+
+					// 最新の情報を取得
+					request.setAttribute("status", "出品状態の商品が存在しません");
+					gotoPage(request, response, "/mypage.jsp");
+
+				} else {
+
+					// 最新の情報を取得
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/mypage.jsp");
+
+				}
+
+			} else if (action.equals("itemDelete")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 商品削除処理
+				dao.deleteItem(id);
+
+				// beanから会員IDを取得して検索
+				List<ListingBean> list = dao.findByCustomerId(bean.getId());
+
+				// 結果がnull
+				if (list == null || list.size() == 0) {
+
+					// 最新の情報を取得
+					request.setAttribute("status", "出品状態の商品が存在しません");
+					gotoPage(request, response, "/mypage.jsp");
+				} else {
+
+					// 最新の情報を取得
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/mypage.jsp");
+				}
+
 			} else {
 
 				request.setAttribute("message", "正しく操作してください。");
 				gotoPage(request, response, "/errInternal.jsp");
 
 			}
-
 		} catch (DAOException e) {
 
 			e.printStackTrace();

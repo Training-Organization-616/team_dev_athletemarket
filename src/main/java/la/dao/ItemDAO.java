@@ -376,4 +376,48 @@ public class ItemDAO {
 		}
 	}
 
+	//商品削除
+	public int deleteItem(int id) throws DAOException {
+		// SQL文の作成
+		String sql = "delete from items where id= ? ";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			// 商品名と値段の指定
+			st.setInt(1, id);
+			// SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}
+	}
+
+	//商品の更新
+	public int updateItem(int itemId, int categoryId, String name, int price, String memo) throws DAOException {
+		// SQL文の作成
+		String sql = "update items set category_id = ?, name = ?, price = ?, memo = ? where id = ? ";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+			// 商品名と値段の指定
+			st.setInt(1, categoryId);
+			st.setString(2, name);
+			st.setInt(3, price);
+			st.setString(4, memo);
+			st.setInt(5, itemId);
+			// SQLの実行
+			int rows = st.executeUpdate();
+			return rows;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("レコードの操作に失敗しました。");
+		}
+	}
+
 }
