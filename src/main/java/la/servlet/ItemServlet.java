@@ -234,8 +234,9 @@ public class ItemServlet extends HttpServlet {
 				name = name.strip();
 				if (name == null || name.length() == 0) {
 					request.setAttribute("failure", "未入力の情報があります");
-					// 選択したカテゴリー保持する
-					request.setAttribute("category_id", categoryId);
+					// 選択した情報を保持する
+					ItemDAO dao = new ItemDAO();
+					request.setAttribute("bean", dao.findById(itemId));
 					gotoPage(request, response, "editItem.jsp");
 				}
 
