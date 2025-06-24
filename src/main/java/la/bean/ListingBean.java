@@ -1,8 +1,9 @@
 package la.bean;
 
+// 修正
 public class ListingBean {
 
-	// フィールド
+	// フィールド 
 	private int id;
 	private int sellerId;
 	private String sellerName;

@@ -150,7 +150,7 @@ public class ItemDAO {
 
 	}
 
-	// 商品詳細の取得
+	// 商品詳細の取得 (出品日を追加)
 	public ListingBean findById(int id) throws DAOException {
 
 		// SQL文の作成

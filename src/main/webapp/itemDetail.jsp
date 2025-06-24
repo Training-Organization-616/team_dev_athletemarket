@@ -21,6 +21,7 @@
 	<br>
 	<br> メモ：${bean.memo}
 	<br>
+	<%-- 追加 --%>
 	<br> 出品日：${bean.sellDay}
 	<br>
 	<br>
