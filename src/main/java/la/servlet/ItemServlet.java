@@ -43,9 +43,19 @@ public class ItemServlet extends HttpServlet {
 				ItemDAO dao = new ItemDAO();
 
 				// 最新の情報を取得
+				List<ListingBean> list = dao.findAllItems();
 
-				request.setAttribute("list", dao.findAllItems());
-				gotoPage(request, response, "/showItems.jsp");
+				// 検索結果なし
+				if (list == null || list.size() == 0) {
+					request.setAttribute("status", "出品状態の商品がありません");
+					gotoPage(request, response, "/showItems.jsp");
+
+				} else {
+
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/showItems.jsp");
+
+				}
 
 				// 商品登録画面に遷移
 			} else if (action.equals("listing")) {
@@ -65,19 +75,21 @@ public class ItemServlet extends HttpServlet {
 				// カテゴリーID
 				int categoryId = Integer.parseInt(request.getParameter("category_id"));
 				// 商品名
-				String name = request.getParameter("name");
+				String name = request.getParameter("name").strip();
 				// 価格
 				int price = Integer.parseInt(request.getParameter("price"));
 				// メモ
 				String memo = request.getParameter("memo");
 
 				//名前に空白（スペース）のみが入力された場合の処理
-				name = name.strip();
+				// name = name.strip();
 				if (name == null || name.length() == 0) {
+
 					request.setAttribute("failure", "未入力の情報があります");
 					// 選択したカテゴリー保持する
 					request.setAttribute("category_id", categoryId);
 					gotoPage(request, response, "registItem.jsp");
+
 				} else {
 
 					// DAOインスタンス生成
@@ -89,6 +101,7 @@ public class ItemServlet extends HttpServlet {
 					// 最新の情報を取得
 					request.setAttribute("list", dao.findAllItems());
 					gotoPage(request, response, "/showItems.jsp");
+
 				}
 
 				// 商品の詳細を表示
@@ -160,8 +173,10 @@ public class ItemServlet extends HttpServlet {
 			} else if (action.equals("history")) {
 
 				ItemDAO dao = new ItemDAO();
+
 				// beanから会員IDを取得して検索
 				List<ListingBean> list = dao.findPurchaseHistory(bean.getId());
+
 				// 検索結果なし
 				if (list == null || list.size() == 0) {
 
@@ -175,34 +190,60 @@ public class ItemServlet extends HttpServlet {
 					request.setAttribute("list", list);
 					gotoPage(request, response, "/purchaseHistory.jsp");
 				}
-			} else if (action.equals("sort")) {
-				String key = request.getParameter("key");
 
-				// 並び替え処理
+				// 並び替え処理（商品一覧）
+			} else if (action.equals("sort")) {
+
+				String key = request.getParameter("key");
 
 				ItemDAO dao_sort = new ItemDAO();
 
 				// リクエストスコープに設定
 				request.setAttribute("key", key);
-				request.setAttribute("list", dao_sort.sortItems(key));
+				// request.setAttribute("list", dao_sort.sortItems(key));
 
-				// JSPにフォワード
-				gotoPage(request, response, "/showItems.jsp");
+				// 最新の情報を取得
+				List<ListingBean> list = dao_sort.sortItems(key);
 
+				// 検索結果なし
+				if (list == null || list.size() == 0) {
+
+					request.setAttribute("status", "出品状態の商品が存在しません");
+					gotoPage(request, response, "/showItems.jsp");
+
+				} else {
+
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/showItems.jsp");
+
+				}
+
+				// 並び替え処理(マイページ)
 			} else if (action.equals("mypageSort")) {
 
 				String key = request.getParameter("key");
 
-				// 並び替え処理
-
 				ItemDAO dao_sort = new ItemDAO();
 
 				// リクエストスコープに設定
 				request.setAttribute("key", key);
-				request.setAttribute("list", dao_sort.mypageSortItems(bean.getId(), key));
+				//request.setAttribute("list", dao_sort.mypageSortItems(bean.getId(), key));
 
-				// JSPにフォワード
-				gotoPage(request, response, "/mypage.jsp");
+				// 最新の情報を取得
+				List<ListingBean> list = dao_sort.mypageSortItems(bean.getId(), key);
+
+				// 検索結果なし
+				if (list == null || list.size() == 0) {
+
+					request.setAttribute("status", "出品状態の商品が存在しません");
+					gotoPage(request, response, "/mypage.jsp");
+
+				} else {
+
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/mypage.jsp");
+
+				}
 
 				//変更ボタンを押下
 			} else if (action.equals("edit")) {
@@ -219,26 +260,27 @@ public class ItemServlet extends HttpServlet {
 
 				//商品の変更
 			} else if (action.equals("editConfirm")) {
+
 				// 商品ID
 				int itemId = Integer.parseInt(request.getParameter("itemId"));
 
 				// カテゴリーID
 				int categoryId = Integer.parseInt(request.getParameter("category_id"));
-				// 商品名
-				String name = request.getParameter("name");
+				// 商品名(スペース削除)
+				String name = request.getParameter("name").strip();
 				// 価格
 				int price = Integer.parseInt(request.getParameter("price"));
 				// メモ
 				String memo = request.getParameter("memo");
 
-				//名前に空白（スペース）のみが入力された場合の処理
-				name = name.strip();
 				if (name == null || name.length() == 0) {
+
 					request.setAttribute("failure", "未入力の情報があります");
 					// 選択した情報を保持する
 					ItemDAO dao = new ItemDAO();
 					request.setAttribute("bean", dao.findById(itemId));
 					gotoPage(request, response, "editItem.jsp");
+
 				} else {
 
 					// DAOインスタンス生成
@@ -253,7 +295,7 @@ public class ItemServlet extends HttpServlet {
 					// beanから会員IDを取得して検索
 					List<ListingBean> list = dao.findByCustomerId(bean.getId());
 
-					// 結果がnull
+					// 検索結果なし
 					if (list == null || list.size() == 0) {
 
 						// 最新の情報を取得
@@ -269,7 +311,9 @@ public class ItemServlet extends HttpServlet {
 					}
 				}
 
+				// 商品削除
 			} else if (action.equals("itemDelete")) {
+
 				int id = Integer.parseInt(request.getParameter("id"));
 				// DAOインスタンス生成
 				ItemDAO dao = new ItemDAO();
@@ -280,15 +324,13 @@ public class ItemServlet extends HttpServlet {
 				// beanから会員IDを取得して検索
 				List<ListingBean> list = dao.findByCustomerId(bean.getId());
 
-				//newstatusにメッセージをセット。
-				request.setAttribute("itemstatus", "商品を削除しました");
-
-				// 結果がnull
+				// 結果なし
 				if (list == null || list.size() == 0) {
 
 					// 最新の情報を取得
 					request.setAttribute("status", "出品状態の商品が存在しません");
 					gotoPage(request, response, "/mypage.jsp");
+
 				} else {
 
 					// 最新の情報を取得
