@@ -13,11 +13,11 @@
 	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1> 
 	<c:choose>
 		<c:when test="${loginUser != null}">
-			<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a> <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a> <a href="/team_dev_athletemarket/ItemServlet?action=history">購入履歴</a> <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
+			<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a> <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a> <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
 			<a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
 		</c:when>
 		<c:otherwise>
-			<p>こんにちは、ゲストさん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a> <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a> <a href="/team_dev_athletemarket/ItemServlet?action=history">購入履歴</a> <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
+			<p>こんにちは、ゲストさん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a> <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a> <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
 			<a href="/team_dev_athletemarket/LoginServlet?action=">ログイン</a></p>
 		</c:otherwise>
 	</c:choose> 
