@@ -52,7 +52,7 @@
 					<tr>
 						<th>メモ(任意)：</th>
 						<td>
-						<textarea name="memo" rows="5" cols="50" id="memo"></textarea>
+						<textarea name="memo" rows="5" cols="50" id="memo">${bean.memo}</textarea>
 						</td>
 					</tr>
 				</table>
