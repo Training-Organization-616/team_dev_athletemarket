@@ -78,17 +78,18 @@ public class ItemServlet extends HttpServlet {
 					// 選択したカテゴリー保持する
 					request.setAttribute("category_id", categoryId);
 					gotoPage(request, response, "registItem.jsp");
+				} else {
+
+					// DAOインスタンス生成
+					ItemDAO dao = new ItemDAO();
+
+					// 商品登録処理(会員IDは、セッション情報から)
+					dao.registItem(bean.getId(), categoryId, name, price, memo);
+
+					// 最新の情報を取得
+					request.setAttribute("list", dao.findAllItems());
+					gotoPage(request, response, "/showItems.jsp");
 				}
-
-				// DAOインスタンス生成
-				ItemDAO dao = new ItemDAO();
-
-				// 商品登録処理(会員IDは、セッション情報から)
-				dao.registItem(bean.getId(), categoryId, name, price, memo);
-
-				// 最新の情報を取得
-				request.setAttribute("list", dao.findAllItems());
-				gotoPage(request, response, "/showItems.jsp");
 
 				// 商品の詳細を表示
 			} else if (action.equals("detail")) {
@@ -238,30 +239,31 @@ public class ItemServlet extends HttpServlet {
 					ItemDAO dao = new ItemDAO();
 					request.setAttribute("bean", dao.findById(itemId));
 					gotoPage(request, response, "editItem.jsp");
-				}
-
-				// DAOインスタンス生成
-				ItemDAO dao = new ItemDAO();
-
-				// 商品登録処理(会員IDは、セッション情報から)
-				dao.updateItem(itemId, categoryId, name, price, memo);
-
-				// beanから会員IDを取得して検索
-				List<ListingBean> list = dao.findByCustomerId(bean.getId());
-
-				// 結果がnull
-				if (list == null || list.size() == 0) {
-
-					// 最新の情報を取得
-					request.setAttribute("status", "出品状態の商品が存在しません");
-					gotoPage(request, response, "/mypage.jsp");
-
 				} else {
 
-					// 最新の情報を取得
-					request.setAttribute("list", list);
-					gotoPage(request, response, "/mypage.jsp");
+					// DAOインスタンス生成
+					ItemDAO dao = new ItemDAO();
 
+					// 商品登録処理(会員IDは、セッション情報から)
+					dao.updateItem(itemId, categoryId, name, price, memo);
+
+					// beanから会員IDを取得して検索
+					List<ListingBean> list = dao.findByCustomerId(bean.getId());
+
+					// 結果がnull
+					if (list == null || list.size() == 0) {
+
+						// 最新の情報を取得
+						request.setAttribute("status", "出品状態の商品が存在しません");
+						gotoPage(request, response, "/mypage.jsp");
+
+					} else {
+
+						// 最新の情報を取得
+						request.setAttribute("list", list);
+						gotoPage(request, response, "/mypage.jsp");
+
+					}
 				}
 
 			} else if (action.equals("itemDelete")) {
