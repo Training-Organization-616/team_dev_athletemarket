@@ -16,12 +16,18 @@
 	<h1>アスリートマーケット</h1>
 	<c:choose>
 		<c:when test="${loginUser != null}">
-			<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
-			<a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
+			<p>こんにちは、${loginUser.name}さん<br>
+			<a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>
+			<a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
+			<a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a>
+			</p>
 		</c:when>
 		<c:otherwise>
-			<p>こんにちは、ゲストさん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
-			<a href="/team_dev_athletemarket/LoginServlet?action=">ログイン</a></p>
+			<p>こんにちは、ゲストさん<br>
+			<a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>
+			<a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
+			<a href="/team_dev_athletemarket/LoginServlet?action=">ログイン</a>
+			</p>
 		</c:otherwise>
 	</c:choose> 
 </div>
@@ -48,12 +54,18 @@
 	</p>
 	</div>
 	
+	<c:if test="${status != null}">
+		<p class="status">${status}</p>
+	</c:if>
+	
 	<div class="card-wrapper">
 		<c:forEach items="${list}" var="item">
 
 			<div class="card">
-				<img src="images/${item.imageName}" alt="画像"> <a
-					href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
+			<a
+					href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">
+				<img src="images/${item.imageName}" alt="画像"></a> 
+					<a href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
 				カテゴリー：${item.categoryName}<br> 出品者名：${item.sellerName}<br>
     			値段：<fmt:formatNumber value="${item.price}" type="number"/>円<br>
 			</div>

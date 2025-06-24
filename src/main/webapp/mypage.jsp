@@ -12,11 +12,19 @@
 </head>
 <body>
 
-	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
-	<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a> <a href="/team_dev_athletemarket/ItemServlet?action=history">購入履歴</a>  <a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>
-	<p>
-	<h1>マイページ</h1>
+<div class="hgroup">
+	<h1>アスリートマーケット</h1>
+	<p>こんにちは、${loginUser.name}さん<br>
+	<a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>
+	<a href="/team_dev_athletemarket/ItemServlet">全商品一覧</a>
+	<a href="/team_dev_athletemarket/ItemServlet?action=history">購入履歴</a>
+	<a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a>
+	</p>
+</div>
+
+<div class="sub">
 	
+	<span>マイページ</span>
 	<form action="/team_dev_athletemarket/ItemServlet" method="get">
     <select name="key" onchange="this.form.submit()">
         <option value=""  selected disabled>-- 並び替えを選択 --</option>
@@ -28,14 +36,12 @@
     <input type="hidden" name="action" value="mypageSort">
 	</form>
 
-	<div class="btns">
 		<form action="/team_dev_athletemarket/ItemServlet" method="get">
 			<button>出品</button>
 			<input type="hidden" name="action" value="listing">
 		</form>
-		</div>
+</div>
 	
-	</p>
 	<c:if test="${status != null}">
 		<p class="status">${status}</p>
 	</c:if>
@@ -47,11 +53,11 @@
 			<c:choose>
 				<%-- 購入されていない --%>
 				<c:when test="${empty item.purchaseDay}">
-					<img src="images/${item.imageName}" alt="画像"><br>
+					<img src="images/${item.imageName}" alt="画像">
 				</c:when>
 				<%-- 購入されている --%>
 				<c:otherwise>
-					<img src="images/soldout.png" alt="画像"><br>
+					<img src="images/soldout.png" alt="画像">
 				</c:otherwise>
 			</c:choose>
 				 <a href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">商品名：${item.itemName}</a><br>
@@ -61,12 +67,19 @@
     			<c:choose>
 				<%-- 購入されていない --%>
 				<c:when test="${empty item.purchaseDay}">
+				
+				<div class="card-buttons">
 			    <form action="/team_dev_athletemarket/ItemServlet?action=edit" method="post">
-        		<button name="id" value="${item.id}">変更</button>
+        		<button class="edit" name="id" value="${item.id}">
+        		変更
+        		</button>
 				</form>
 				<form action="/team_dev_athletemarket/ItemServlet?action=itemDelete" method="post" onsubmit="return beforeSubmit()">
-        		<button name="id" value="${item.id}" id="btn" type="submit">削除</button>
+        		<button class="delete" name="id" value="${item.id}" id="btn" type="submit">
+        		削除
+        		</button>
 				</form>
+				</div>
 				</c:when>
 				<%-- 購入されている --%>
 				<c:otherwise>
@@ -79,7 +92,7 @@
 		</c:forEach>
 	</div>
 	
-	<a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a>
+	<a href="/team_dev_athletemarket/ItemServlet" class="return-link">商品一覧に戻る</a>
 	
 		<script>
   function beforeSubmit() {
