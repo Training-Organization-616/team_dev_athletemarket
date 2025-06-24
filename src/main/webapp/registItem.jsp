@@ -5,25 +5,25 @@
 <head>
 <meta charset="UTF-8">
 <title>スポーツ用品CtoC売買サイト</title>
-<%-- <link rel="stylesheet" href="css/style.css"> --%>
+	<link rel="stylesheet" href="css/registItem.css">
 </head>
 <body>
 
-	<h1 style="background-color : blue;">スポーツ用品CtoC売買サイト</h1>
+	<h1 style="text-align : center;">商品登録</h1>
 
 		<p style="color: red;">${failure}</p>
 
-			<form action="/team_dev_athletemarket/ItemServlet"
-				method="post" onsubmit="return check()">
-				<table>
-					<tr>
-						<th>商品名：</th>
-						<td><input type="text" name="name" id="name" required></td>
-					</tr>
-					<tr>
-						<th>カテゴリー：</th>
-						<td>
-						<select name="category_id" id="category">
+		<div class="Form">
+			<form action="/team_dev_athletemarket/ItemServlet" method="post" onsubmit="return check()">
+			
+			<div class="Form-Item">
+				<p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>商品名</p>
+					<input type="text" name="name" id="name" class="Form-Item-Input" placeholder="例）サッカーボール" required>
+			</div>
+			
+			<div class="Form-Item">
+				<p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>カテゴリー名</p>
+					<select name="category_id" id="category" class="Form-Item-Input">
 						<option value="1" ${category_id == 1 ? "selected" : ""}>硬式野球</option>
 						<option value="2" ${category_id == 2 ? "selected" : ""}>軟式野球</option>
 						<option value="3" ${category_id == 3 ? "selected" : ""}>サッカー</option>
@@ -37,28 +37,24 @@
 						<option value="11" ${category_id == 11 ? "selected" : ""}>バドミントン</option>
 						<option value="12" ${category_id == 12 ? "selected" : ""}>陸上</option>
 						<option value="13" ${category_id == 13 ? "selected" : ""}>その他</option>
-						</select>
-						</td>
-					</tr>
-					<tr>
+					</select>		
+			</div>
 					
-						<th>値段：</th>
-						<td>
-						<input type="number" name="price" id="price" min="1" required>
-						</td>
+			<div class="Form-Item">
+    			<p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>値段</p>
+				<input type="number" name="price" id="price" min="1" class="Form-Item-Input" placeholder="例）1,000" required>
+			</div>		
 							
-					</tr>
-					<tr>
-						<th>メモ(任意)：</th>
-						<td>
-						<textarea name="memo" rows="5" cols="50" id="memo"></textarea>
-						</td>
-					</tr>
-				</table>
+					
+			<div class="Form-Item">
+    			<p class="Form-Item-Label isMsg"><span class="Form-Item-Label-NoneRequired">任意</span>メモ</p>
+				<textarea name="memo" rows="5" cols="50" id="memo" class="Form-Item-Textarea"></textarea>		
+			</div>
 				<input type="hidden" name="action" value="confirm">
-				<button>出品</button>
+				<button class="Form-Btn">出品</button>
 			</form>
-			<br><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a>
+		</div>
+			<p style="text-align : center;"><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a></p>
 </body>
 <script>
 	function check() {
