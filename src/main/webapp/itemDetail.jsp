@@ -21,6 +21,8 @@
 	<br>
 	<br> メモ：${bean.memo}
 	<br>
+	<br> 出品日：${bean.sellDay}
+	<br>
 	<br>
 
 	<c:choose>

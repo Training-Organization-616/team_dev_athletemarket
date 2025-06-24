@@ -11,6 +11,7 @@ public class ListingBean {
 	private String imageName;
 	private String itemName;
 	private int price;
+	private String sellDay;
 	private String purchaseDay;
 	private String memo;
 
@@ -20,7 +21,7 @@ public class ListingBean {
 	}
 
 	public ListingBean(int id, int sellerId, String sellerName, String categoryName, String imageName, String itemName,
-			int price,
+			int price, String sellDay,
 			String purchaseDay, String memo) {
 
 		this.id = id;
@@ -29,6 +30,7 @@ public class ListingBean {
 		this.categoryName = categoryName;
 		this.itemName = itemName;
 		this.price = price;
+		this.sellDay = sellDay;
 		this.purchaseDay = purchaseDay;
 		this.memo = memo;
 
@@ -65,6 +67,14 @@ public class ListingBean {
 
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public String getSellDay() {
+		return sellDay;
+	}
+
+	public void setSellDay(String sellDay) {
+		this.sellDay = sellDay;
 	}
 
 	public String getPurchaseDay() {

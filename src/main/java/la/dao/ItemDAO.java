@@ -178,6 +178,7 @@ public class ItemDAO {
 				bean.setImageName(rs.getString("image_name"));
 				bean.setItemName(rs.getString("item_name"));
 				bean.setPrice(rs.getInt("price"));
+				bean.setSellDay(rs.getString("sell_day"));
 				bean.setPurchaseDay(rs.getString("purchase_day"));
 				bean.setMemo(rs.getString("memo"));
 
