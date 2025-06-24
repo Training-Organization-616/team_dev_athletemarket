@@ -6,20 +6,38 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="./css/login.css">
 <title>ログイン</title>
 </head>
 <body>
-<h1>スポーツ用品CtoC売買サイト</h1>
-<p>${message}</p>
-<form action="/team_dev_athletemarket/LoginServlet" method="post">
-メールアドレス：<input type="text" name="email"><br>
-パスワード：<input type="password" name="password"><br>
-<input type="hidden" name="action" value="login">
-<button>ログイン</button>
+<div class="login">
+    <div class="login-screen">
+    	<div class="app-title">
+			<h1>アスリートマーケット</h1>
+		</div>
+		<div class="login-form">
+		<c:if test="${message != null}">
+		<div class="control-group">
+			<font color="red"><small>${message}</small></font>
+		</div>
+		</c:if>
+		<form action="/team_dev_athletemarket/LoginServlet?action=login" method="post">
+        <div class="control-group">
+        	<input type="text" class="login-field" value="" placeholder="email" id="login-name" name="email" required>
+        	<label class="login-field-icon fui-user" for="login-name"></label>
+        </div>
+
+        <div class="control-group">
+        	<input type="password" class="login-field" value="" placeholder="password" id="login-pass" name="password" required>
+       		<label class="login-field-icon fui-lock" for="login-pass"></label>
+        </div>
+        <button class="btn btn-primary btn-large btn-block">Login</button>
 </form>
 
 <!--新規会員登録へ-->
-<p><a href = "/team_dev_athletemarket/UserServlet">新規登録(リンク)</a></p>
-
+		<a class="login-link" href = "/team_dev_athletemarket/UserServlet">Create an account</a>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
