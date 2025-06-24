@@ -41,7 +41,7 @@
 	
 	
 	<p>
-		<form action="/team_dev_athletemarket/ItemServlet" method="get">
+		<form action="/team_dev_athletemarket/ItemServlet" method="get" onsubmit="return check()">
 			<button>出品</button>
 			<input type="hidden" name="action" value="listing">
 		</form>
@@ -62,4 +62,13 @@
 	</div>
 
 </body>
+<script>
+	function check() {
+		if (${empty loginUser}){
+			var result= alert("ログイン必須です");
+			return result;
+		}
+	}
+</script>
+
 </html>
