@@ -75,6 +75,8 @@
 		if(window.confirm("商品名："+ name +"\n\nカテゴリー："+ category +"\n\n値段："+ price +"円\n\nメモ(任意)："+ memo +"\n\n" +"                           " + "以上の内容で変更します。よろしいですか？")) {
 			var result= alert("商品情報を変更しました");
 		return result; 
+		}else{
+			return false;
 		}
 	}
 </script>
