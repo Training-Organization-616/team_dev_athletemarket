@@ -26,46 +26,8 @@ body {
   font-size: 14px; /* 全体の文字サイズを適度に設定 */
   color: #333333; /* 読みやすい濃いグレー */
   padding: 10px; /* テキストと境界線の間に余白を追加 */
-  font-weight: bold; /* 太字で視認性を高める */ 
+  font-weight: bold; /* 太字で視認性を高める */
 }
-
-.card-buttons {
-  display: flex; /* 横並びに配置 */
-  justify-content: space-evenly; /* 等間隔に配置 */
-  align-items: center; /* 垂直方向を中央揃え */
-  margin-top: 10px; /* テキストとの余白を追加 */
-  gap: 10px; /* ボタン間に余白を追加 */
-}
-
-.card-buttons button {
-  height: 40px; /* 出品ボタンと同じ高さ */
-  padding: 5px 15px; /* ボタン内余白を調整 */
-  background-color: #8a9a5b; /* デフォルト背景色（参考として追加） */
-  border: none;
-  border-radius: 5px; /* 角丸 */
-  color: #ffffff; /* 文字色 */
-  cursor: pointer;
-  font-size: 14px; /* フォントサイズ */
-  transition: background-color 0.3s ease; /* ホバー効果をスムーズに */
-}
-
-.card-buttons .edit {
-  background-color: #4da6ff; /* 変更ボタン用の青 */
-}
-
-.card-buttons .edit:hover {
-  background-color: #2d88ff; /* ホバー時の濃い青 */
-}
-
-.card-buttons .delete {
-  background-color: #ff4c4c; /* 削除ボタン用の赤 */
-}
-
-.card-buttons .delete:hover {
-  background-color: rgb(181, 0, 0); /* ホバー時の濃い赤 */
-}
-
-
 
 .card:hover {
   transform: scale(1.01); /* カードを拡大 */
@@ -88,6 +50,7 @@ body {
 .card p {
   margin: 5px 0; /* テキスト間の余白を調整 */
 }
+
 
 img {
 	width: 280px;
