@@ -33,10 +33,6 @@
 			<button>出品</button>
 			<input type="hidden" name="action" value="listing">
 		</form>
-		<form action="/team_dev_athletemarket/UserServlet" method="get">
-			<button>退会</button>
-			<input type="hidden" name="action" value="withdrawal">
-		</form>
 		</div>
 	</p>
 	<c:if test="${status != null}">

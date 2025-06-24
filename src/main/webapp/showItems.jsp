@@ -12,7 +12,8 @@
 </head>
 <body>
 
-	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1> 
+<div class="hgroup">
+	<h1>アスリートマーケット</h1>
 	<c:choose>
 		<c:when test="${loginUser != null}">
 			<p>こんにちは、${loginUser.name}さん<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>
@@ -23,7 +24,9 @@
 			<a href="/team_dev_athletemarket/LoginServlet?action=">ログイン</a></p>
 		</c:otherwise>
 	</c:choose> 
+</div>
 	
+<div class="sub">
 <form action="/team_dev_athletemarket/ItemServlet" method="get">
     <select name="key" onchange="this.form.submit()">
         <option value=""  selected disabled>-- 並び替えを選択 --</option>
@@ -43,6 +46,7 @@
 			<input type="hidden" name="action" value="listing">
 		</form>
 	</p>
+	</div>
 	
 	<div class="card-wrapper">
 		<c:forEach items="${list}" var="item">

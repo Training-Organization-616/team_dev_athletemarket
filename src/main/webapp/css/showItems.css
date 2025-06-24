@@ -2,19 +2,20 @@
 
 .card-wrapper {
   display: flex;
-  flex-wrap: wrap;
-  gap: 1px;
+  flex-wrap: wrap; /* 次の行に繰り越される設定 */
+  gap: 10px; /* カード間のスペースを設定 */
+  justify-content: space-between; /* 必要に応じて配置を調整 */
 }
 
 .card {
-  display: flex;
-  flex-direction: column;
-  width: calc(25% - 22px);
+  flex: 0 0 calc(25% - 10px); /* カードの幅を4分割に設定 */
+  box-sizing: border-box; /* パディングやボーダーを含めて計算 */
   padding: 10px;
   border: solid #000000 1px;
 }
 
-p {
+
+.hgroup {
 	text-align: right;
 }
 
@@ -22,13 +23,3 @@ img {
 	width: 290px;
 	height: 290px;
 }
-
-/*.card-content {*/
-/*  flex: 1 1 auto;*/
-/*  display: flex;*/
-/*  flex-direction: column;*/
-/*}*/
-
-/*.card-text {*/
-/*  flex-grow: 1; */
-/*}*/

@@ -26,7 +26,13 @@
 <input type="text" name="tel1" placeholder="電話番号" value="${loginUser.tel }">
 <br>
 
-<input type="DATE" name="birth_day1" placeholder="生年月日" value="${loginUser.birthDay }">
+<input type="DATE" id="birth_day" name="birth_day1" placeholder="生年月日" value="${loginUser.birthDay }">
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const today = new Date().toISOString().split("T")[0];
+    document.getElementById("birth_day").setAttribute("max", today);
+  });
+</script>
 <br>
 
 <input type="email" name="email1" placeholder="メールアドレス" value="${loginUser.email }">
