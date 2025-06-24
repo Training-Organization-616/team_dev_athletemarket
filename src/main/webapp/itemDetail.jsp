@@ -21,7 +21,6 @@
 	<br>
 	<br> メモ：${bean.memo}
 	<br>
-	<%-- 追加 --%>
 	<br> 出品日：${bean.sellDay}
 	<br>
 	<br>
@@ -64,9 +63,10 @@
 	}
 	  function beforeSubmit() {
 		 if(window.confirm('本当に削除しますか？')) {
-		    return true;
+			 var result= alert("商品を削除しました");
+		    	return result;
 		 } else {
-		 return false;
+		 		return false;
 		 }
 	}
 </script>

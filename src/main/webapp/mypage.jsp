@@ -34,10 +34,6 @@
 			<input type="hidden" name="action" value="listing">
 		</form>
 		</div>
-		
-	<c:if test="${itemstatus != null}">
-		<p class="status">${itemstatus}</p>
-	</c:if>
 	
 	</p>
 	<c:if test="${status != null}">
@@ -88,9 +84,10 @@
 		<script>
   function beforeSubmit() {
     if(window.confirm('本当に削除しますか？')) {
-      return true;
+    	var result= alert("商品を削除しました");
+      		return result;
     	} else {
-      	return false;
+      		return false;
     	}
   	}
 	</script>

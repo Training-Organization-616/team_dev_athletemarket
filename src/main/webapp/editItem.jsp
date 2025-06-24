@@ -72,8 +72,10 @@
 		let price = document.getElementById('price').value;
         // メモ
         let memo = document.getElementById('memo').value;
-		var result = window.confirm("商品名："+ name +"\n\nカテゴリー："+ category +"\n\n値段："+ price +"円\n\nメモ(任意)："+ memo +"\n\n" +"                           " + "以上の内容で変更します。よろしいですか？");
+		if(window.confirm("商品名："+ name +"\n\nカテゴリー："+ category +"\n\n値段："+ price +"円\n\nメモ(任意)："+ memo +"\n\n" +"                           " + "以上の内容で変更します。よろしいですか？")) {
+			var result= alert("商品情報を変更しました");
 		return result; 
+		}
 	}
 </script>
 </html>
