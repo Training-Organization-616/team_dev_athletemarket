@@ -34,6 +34,11 @@
 			<input type="hidden" name="action" value="listing">
 		</form>
 		</div>
+		
+	<c:if test="${itemstatus != null}">
+		<p class="status">${itemstatus}</p>
+	</c:if>
+	
 	</p>
 	<c:if test="${status != null}">
 		<p class="status">${status}</p>

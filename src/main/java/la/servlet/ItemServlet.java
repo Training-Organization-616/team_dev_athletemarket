@@ -247,6 +247,9 @@ public class ItemServlet extends HttpServlet {
 					// 商品登録処理(会員IDは、セッション情報から)
 					dao.updateItem(itemId, categoryId, name, price, memo);
 
+					//newstatusにメッセージをセット。
+					request.setAttribute("itemstatus", "商品を変更しました");
+
 					// beanから会員IDを取得して検索
 					List<ListingBean> list = dao.findByCustomerId(bean.getId());
 
@@ -276,6 +279,9 @@ public class ItemServlet extends HttpServlet {
 
 				// beanから会員IDを取得して検索
 				List<ListingBean> list = dao.findByCustomerId(bean.getId());
+
+				//newstatusにメッセージをセット。
+				request.setAttribute("itemstatus", "商品を削除しました");
 
 				// 結果がnull
 				if (list == null || list.size() == 0) {
