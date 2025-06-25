@@ -46,7 +46,7 @@
 						onsubmit="return check()">
 						<input type="hidden" name="action" value="purchase"> <input
 							type="hidden" name="id" value="${bean.id}">
-						<button>購入</button>
+						<button class="purchase">購入</button>
 					</form>
 				</c:when>
 				<%-- 購入されていない、かつ出品したユーザー --%>
@@ -68,12 +68,11 @@
 				</c:otherwise>
 			</c:choose>
 		</div>
-
 	</div>
-
-	<p>
-		<a href="/team_dev_athletemarket/ItemServlet">商品一覧画面へ戻る</a>
-	</p>
+	
+	<form action="/team_dev_athletemarket/ItemServlet" method="get">
+		<button class="Form-BtnBack">戻る</button>
+	</form>
 
 </body>
 
