@@ -59,5 +59,14 @@ ID:<input type="text" name="userId" > <br>
     </table>
 </c:if>
 
+<script>
+  function beforeSubmit() {
+    if(window.confirm('本当に強制退会させますか？')) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+</script>
 </body>
 </html>

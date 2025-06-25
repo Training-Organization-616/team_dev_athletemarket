@@ -56,7 +56,7 @@ public class AdminServlet extends HttpServlet {
 					request.setAttribute("message", "該当データが存在しません");
 					//追加
 					//gotoPage(request, response, "/admin.jsp");
-					gotoPage(request, response, "/adminitems.jsp");
+					gotoPage(request, response, "/admin.jsp");
 				} else {
 					//ここが間違い
 					//request.setAttribute("customerlist", list);
@@ -72,6 +72,11 @@ public class AdminServlet extends HttpServlet {
 				CustomerBean bean = list.get(0);
 				dao.registBlackCustomer(bean.getId(), bean.getEmail());
 				dao.deleteCustomer(Integer.parseInt(id));
+
+				//強制退会させたユーザーの商品削除処理の追加
+				ItemDAO dao2 = new ItemDAO();
+				dao2.deleteUserItems(bean.getId());
+
 				List<CustomerBean> list2 = dao.findAllCustomer();
 				if (list2 == null || list2.size() == 0) {
 					request.setAttribute("message", "該当データが存在しません");
