@@ -10,15 +10,16 @@
 </head>
 <body>
 
-	<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
+<div class="hgroup">
+	<h1>アスリートマーケット</h1>
 <!--	追加-->
 <!--	<p>こんにちは、${loginUser.name}さん 管理者用<br><a href="/team_dev_athletemarket/UserServlet?action=update">会員情報</a>  <a href="/team_dev_athletemarket/ItemServlet?action=mypage">マイページ</a>  <a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a></p>-->
-	<p>こんにちは、${loginUser.name}さん 管理者用<br>
+	<p>こんにちは、${loginUser.name}(管理者)さん<br>
 	<a href="/team_dev_athletemarket/AdminServlet" method="post">会員一覧</a> 
 	<a href="/team_dev_athletemarket/AdminServlet?action=adminItems" method="post">商品一覧</a>
 	<a href="/team_dev_athletemarket/LoginServlet?action=logout">ログアウト</a>
 	</p>
-		
+</div>
 	<div class="card-wrapper">
 		<c:forEach items="${list}" var="item">
 			<div class="card">

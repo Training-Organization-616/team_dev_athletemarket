@@ -6,10 +6,13 @@
 <head>
 <meta charset="UTF-8">
 <title>会員一覧</title>
+<link rel="stylesheet" href="css/admins.css">
 </head>
 <body>
 <!--追加-->
-<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
+
+<div class="hgroup">
+<h1>アスリートマーケット</h1>
 	<p>こんにちは、${loginUser.name}さん 管理者用</p>
 <!--<h1><a href="/team_dev_athletemarket/AdminServlet?action=">会員一覧検索</a></h1>-->
 <h1>会員一覧検索</h1>

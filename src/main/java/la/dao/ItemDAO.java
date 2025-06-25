@@ -31,7 +31,7 @@ public class ItemDAO {
 	public List<ListingBean> findAllItems() throws DAOException {
 
 		// SQL文の作成
-		String sql = "SELECT * FROM listing WHERE purchase_day IS NULL";
+		String sql = "SELECT * FROM listing WHERE purchase_day IS NULL order by id ";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
@@ -70,7 +70,7 @@ public class ItemDAO {
 	public List<ListingBean> findByCustomerId(int customerId) throws DAOException {
 
 		// SQL文の作成
-		String sql = "SELECT * FROM listing WHERE seller_id = ?";
+		String sql = "SELECT * FROM listing WHERE seller_id = ? order by id";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
@@ -113,7 +113,7 @@ public class ItemDAO {
 	public List<ListingBean> findAllItemsByAdmin() throws DAOException {
 
 		// SQL文の作成
-		String sql = "SELECT * FROM listing WHERE purchase_day IS NULL";
+		String sql = "SELECT * FROM listing WHERE purchase_day IS NULL order by id ";
 
 		try (// データベースへの接続
 				Connection con = DriverManager.getConnection(url, user, pass);
