@@ -8,11 +8,26 @@
 <title>会員一覧</title>
 </head>
 <body>
-<h1><a href="/team_dev_athletemarket/AdminServlet?action=">会員一覧検索</a></h1>
+<!--追加-->
+<h1 style="background-color:blue;">スポーツ用品CtoC売買サイト</h1>
+	<p>こんにちは、${loginUser.name}さん 管理者用</p>
+<!--<h1><a href="/team_dev_athletemarket/AdminServlet?action=">会員一覧検索</a></h1>-->
+<h1>会員一覧検索</h1>
+
 <c:if test="${message != null}">
 <font color="red">${message}</font>
 <br>
 </c:if>
+
+<!--追加-->
+<!--会員一覧リンク-->
+<a href="/team_dev_athletemarket/AdminServlet" method="post">
+会員一覧</a>
+<!--商品一覧リンク チェック-->
+<a href="/team_dev_athletemarket/AdminServlet?action=adminItems" method="post">
+商品一覧</a>
+<!--追加-->
+
 
 <a href="/team_dev_athletemarket/LoginServlet?action=logout" method="post">
 ログアウト</a>
@@ -43,14 +58,6 @@ ID:<input type="text" name="userId" > <br>
     </c:forEach>
     </table>
 </c:if>
-<script>
-  function beforeSubmit() {
-    if(window.confirm('本当に強制退会させますか？')) {
-      return true;
-    } else {
-      return false;
-    }
-  }
-</script>
+
 </body>
 </html>

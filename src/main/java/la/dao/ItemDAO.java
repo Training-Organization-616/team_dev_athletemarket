@@ -109,6 +109,46 @@ public class ItemDAO {
 
 	}
 
+	// 全ての商品を取得2(出品状態のみ)
+	public List<ListingBean> findAllItemsByAdmin() throws DAOException {
+
+		// SQL文の作成
+		String sql = "SELECT * FROM listing WHERE purchase_day IS NULL";
+
+		try (// データベースへの接続
+				Connection con = DriverManager.getConnection(url, user, pass);
+				// PreparedStatementオブジェクトの取得
+				PreparedStatement st = con.prepareStatement(sql);) {
+
+			// SQLの実行
+			ResultSet rs = st.executeQuery();
+			List<ListingBean> list = new ArrayList<ListingBean>();
+
+			// 結果の取得
+			while (rs.next()) {
+
+				ListingBean bean = new ListingBean();
+				bean.setId(rs.getInt("id"));
+				bean.setSellerId(rs.getInt("seller_id"));
+				bean.setSellerName(rs.getString("seller_name"));
+				bean.setSellDay(rs.getString("sell_day"));
+				bean.setCategoryName(rs.getString("category_name"));
+				bean.setImageName(rs.getString("image_name"));
+				bean.setItemName(rs.getString("item_name"));
+				bean.setPrice(rs.getInt("price"));
+				bean.setMemo(rs.getString("memo"));
+				list.add(bean);
+
+			}
+			// 商品一覧をListとして返す
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new DAOException("出品商品の取得に失敗しました。");
+		}
+
+	}
+
 	// 購入履歴(直近5件)
 	public List<ListingBean> findPurchaseHistory(int customerId) throws DAOException {
 

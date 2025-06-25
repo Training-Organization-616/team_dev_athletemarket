@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import la.bean.CustomerBean;
+import la.bean.ListingBean;
 import la.dao.AdminDAO;
 import la.dao.DAOException;
 import la.dao.ItemDAO;
@@ -39,18 +40,28 @@ public class AdminServlet extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		// TODO Auto-generated method stub
 		try {
-			// パラメータの解析
+			// パラメータの解析 
 			String action = request.getParameter("action");
+			// パラメータなし(全件取得) //6月24日
 			if (action == null || action.length() == 0) {
 				// input_customerまたはパラメータなしの場合は顧客情報入力ページを表示 
 				// customerInfo.jspにフォーム
+				//追加１ItemDAOに変更して、進めるように
 				AdminDAO dao = new AdminDAO();
+				//ItemDAO dao = new ItemDAO();
+				//	List<CustomerBean> list = dao.findAllCustomer();
+				//追加１itemsDAO用の全ての商品を取得(出品状態のみ)をしている。
 				List<CustomerBean> list = dao.findAllCustomer();
 				if (list == null || list.size() == 0) {
 					request.setAttribute("message", "該当データが存在しません");
-					gotoPage(request, response, "/admin.jsp");
+					//追加
+					//gotoPage(request, response, "/admin.jsp");
+					gotoPage(request, response, "/adminitems.jsp");
 				} else {
+					//ここが間違い
+					//request.setAttribute("customerlist", list);
 					request.setAttribute("customerlist", list);
+					//gotoPage(request, response, "/admin.jsp");
 					gotoPage(request, response, "/admin.jsp");
 				}
 
@@ -61,11 +72,6 @@ public class AdminServlet extends HttpServlet {
 				CustomerBean bean = list.get(0);
 				dao.registBlackCustomer(bean.getId(), bean.getEmail());
 				dao.deleteCustomer(Integer.parseInt(id));
-
-				//強制退会させたユーザーの商品削除処理の追加
-				ItemDAO dao2 = new ItemDAO();
-				dao2.deleteUserItems(bean.getId());
-
 				List<CustomerBean> list2 = dao.findAllCustomer();
 				if (list2 == null || list2.size() == 0) {
 					request.setAttribute("message", "該当データが存在しません");
@@ -74,8 +80,91 @@ public class AdminServlet extends HttpServlet {
 					request.setAttribute("customerlist", list2);
 					gotoPage(request, response, "/admin.jsp");
 				}
+			} //追加①始
+				//管理者用の会員一覧画面にて、商品一覧リンクをクリックした際に、商品一覧画面が表示される。
+			else if (action.equals("adminItems")) {
+				//				String id = request.getParameter("id");
+				//				AdminDAO dao = new AdminDAO();
+				//				List<CustomerBean> list = dao.findByIdAndName(id, "");
+				//				CustomerBean bean = list.get(0);
+				//				dao.registBlackCustomer(bean.getId(), bean.getEmail());
+				//				dao.deleteCustomer(Integer.parseInt(id));
+				//				List<CustomerBean> list2 = dao.findAllCustomer();
 
-			} else if (action.equals("search")) {
+				// DAOインスタンス生成
+				ItemDAO dao = new ItemDAO();
+
+				// 最新の情報を取得
+				List<ListingBean> list = dao.findAllItemsByAdmin();
+
+				// 検索結果なし
+				if (list == null || list.size() == 0) {
+					request.setAttribute("status", "出品状態の商品がありません");
+					gotoPage(request, response, "/adminitems.jsp");
+
+				} else {
+
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/adminitems.jsp");
+
+				}
+				//				if (list2 == null || list2.size() == 0) {
+				//					request.setAttribute("message", "該当データが存在しません");
+				//					gotoPage(request, response, "/admin.jsp");
+				//				} else {
+				//					request.setAttribute("customerlist", list2);
+				//					gotoPage(request, response, "/admin.jsp");
+				//				}
+			} //追加①終
+				//追加②始
+				//AdminDAOで商品情報を削除する。
+			else if (action.equals("adminItemDelete")) {
+				int id = Integer.parseInt(request.getParameter("id"));
+				AdminDAO dao = new AdminDAO();
+				// 商品削除処理
+				dao.deleteItem(id);
+				//List<CustomerBean> list = dao.findByIdAndName(id, "");
+				//				List<CustomerBean> list = dao.findByIdAndName(id, "");
+				//				List<ListingBean> list = dao.findAllCustomer(id, "");
+				//今回は検索しないから、削除
+				//List<ListingBean> list = dao.findAllCustomer(id, "");
+				//商品の削除処理はAdminServletだと無限ループ
+				//				gotoPage(request, response, "/AdminServlet");
+
+				//(追加２)再び全件表示をさせて出力させる。
+				ItemDAO dao1 = new ItemDAO();
+
+				// 最新の情報を取得
+				List<ListingBean> list = dao1.findAllItemsByAdmin();
+
+				// 検索結果なし
+				if (list == null || list.size() == 0) {
+					request.setAttribute("status", "出品状態の商品がありません");
+					gotoPage(request, response, "/adminitems.jsp");
+
+				} else {
+
+					request.setAttribute("list", list);
+					gotoPage(request, response, "/adminitems.jsp");
+
+				}
+			}
+
+			//				CustomerBean bean = list.get(0);
+			//				dao.registBlackCustomer(bean.getId(), bean.getEmail());
+			//				dao.deleteCustomer(Integer.parseInt(id));
+			//				List<CustomerBean> list2 = dao.findAllCustomer();
+			//				if (list2 == null || list2.size() == 0) {
+			//					request.setAttribute("message", "該当データが存在しません");
+			//					gotoPage(request, response, "/admin.jsp");
+			//				} else {
+			//					request.setAttribute("customerlist", list2);
+			//					gotoPage(request, response, "/admin.jsp");
+			//				}
+			//			}
+			//追加②終
+
+			else if (action.equals("search")) {
 				try {
 					String id = request.getParameter("userId");
 					id = id.strip();
