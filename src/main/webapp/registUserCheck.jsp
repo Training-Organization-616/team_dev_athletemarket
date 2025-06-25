@@ -6,40 +6,57 @@
 <head>
 <meta charset="UTF-8">
 <title>会員情報確認ページ</title>
+<link rel="stylesheet" href="css/confirm.css">
+
 </head>
 <body>
+<h1 style="text-align : center;">登録内容確認</h1>
 
-<h1>スポーツ用品CtoC売買サイト</h1>
+	<div class="Form">
 
-<form action="/team_dev_athletemarket/UserServlet?action=addUser" method="post">
+	<form action="/team_dev_athletemarket/UserServlet?action=addUser" method="post">
 
-<p>名前: ${name}</p>
-<input type="hidden" name="name" value="${name}">
+	<div class="Form-Item">
+		<p class="Form-Item-Label">名前: ${name}</p>
+		<input type="hidden" name="name" value="${name}">
+	</div>
 
-<p>住所: ${address}</p>
-<input type="hidden" name="address" value="${address}">
+	<div class="Form-Item">
+		<p class="Form-Item-Label">住所: ${address}</p>
+		<input type="hidden" name="address" value="${address}">
+	</div>
 
-<p>電話番号: ${tel}</p>
-<input type="hidden" name="tel" value="${tel}">
+	<div class="Form-Item">
+		<p class="Form-Item-Label">電話番号: ${tel}</p>
+		<input type="hidden" name="tel" value="${tel}">
+	</div>
+	
+	<div class="Form-Item">
+		<p class="Form-Item-Label">生年月日: ${birth_day}</p>
+		<input type="hidden" name="birth_day" value="${birth_day}">
+	</div>
 
-<p>生年月日: ${birth_day}</p>
-<input type="hidden" name="birth_day" value="${birth_day}">
+	<div class="Form-Item">
+		<p class="Form-Item-Label">メールアドレス: ${email}</p>
+		<input type="hidden" name="email" value="${email}">
+	</div>
+	
+	<div class="Form-Item">
+		<p class="Form-Item-Label">パスワード: ${password}</p>
+		<input type="hidden" name="password" value="${password}">
+	</div>
 
-<p>メールアドレス: ${email}</p>
-<input type="hidden" name="email" value="${email}">
+	<div class="Form-Item">
+	<p class="Form-Item-Label" style="color:#ff6666">以上の内容で登録します。よろしいですか？</p>
+	</div>
 
-<p>パスワード: ${password}</p>
-<input type="hidden" name="password" value="${password}">
-
-<p>以上の内容で登録します。よろしいですか？</p>
-
-<button onclick="clickEvent()">確定</button>
+<button onclick="clickEvent()" class="Form-Btn">確定</button>
 
 </form>
 
 <form action="/team_dev_athletemarket/UserServlet" method="get">
 
-<button>戻る</button>
+<button class="Form-BtnBack">戻る</button>
 
 </form>
 
