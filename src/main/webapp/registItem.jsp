@@ -54,7 +54,11 @@
 				<button class="Form-Btn">出品</button>
 			</form>
 		</div>
-			<p style="text-align : center;"><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a></p>
+		
+		<form action="/team_dev_athletemarket/ItemServlet" method="get">
+			<button class="Form-BtnBack">戻る</button>
+		</form>
+		 
 </body>
 <script>
 	function check() {
