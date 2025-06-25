@@ -69,7 +69,7 @@
 			</c:choose>
 		</div>
 	</div>
-	
+	 
 	<form action="/team_dev_athletemarket/ItemServlet" method="get">
 		<button class="Form-BtnBack">戻る</button>
 	</form>
