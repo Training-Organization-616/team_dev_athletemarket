@@ -47,7 +47,7 @@
 	</div>
 
 	<form action="/team_dev_athletemarket/UserServlet" method="get">
-		<button>退会</button>
+		<button class="Form-BtnOut">退会</button>
 		<input type="hidden" name="action" value="withdrawal">
 	</form>
 
