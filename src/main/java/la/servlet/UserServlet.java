@@ -52,6 +52,15 @@ public class UserServlet extends HttpServlet {
 				passwordCheck = (passwordCheck != null) ? passwordCheck.strip() : "";
 				// 空白チェック
 
+				//アトリビュートに値をセット
+				request.setAttribute("name", name);
+				request.setAttribute("address", address);
+				request.setAttribute("tel", tel);
+				request.setAttribute("birth_day", birth_day);
+				request.setAttribute("email", email);
+				request.setAttribute("password", password);
+				request.setAttribute("passwordCheck", passwordCheck);
+
 				if (name == null || name.isEmpty()
 						|| address == null || address.isEmpty()
 						|| tel == null || tel.isEmpty()
@@ -88,13 +97,6 @@ public class UserServlet extends HttpServlet {
 					gotoPage(request, response, "/registUser.jsp");
 					return;
 				}
-
-				request.setAttribute("name", name);
-				request.setAttribute("address", address);
-				request.setAttribute("tel", tel);
-				request.setAttribute("birth_day", birth_day);
-				request.setAttribute("email", email);
-				request.setAttribute("password", password);
 
 				gotoPage(request, response, "/registUserCheck.jsp");
 				// 新規登録確認画面にリダイレクト

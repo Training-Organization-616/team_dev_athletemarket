@@ -23,23 +23,23 @@
 	</c:if>
 
         <div class="control-group">
-     	   <input type="text" class="login-field" value="" placeholder="username" id="login-name" name="name">
+     	   <input type="text" class="login-field" value="${name}" placeholder="username" id="login-name" name="name" required>
       	   <label class="login-field-icon fui-user" for="login-name"></label>
         </div>
 
         <div class="control-group">
-        	<input type="text" class="login-field" value="" placeholder="address" id="login-name" name="address">
+        	<input type="text" class="login-field" value="${address}" placeholder="address" id="login-name" name="address" required>
         	<label class="login-field-icon fui-user" for="login-name"></label>
         </div>
 
         <div class="control-group">
-        	<input type="text" class="login-field" value="" placeholder="phone number" id="login-name" name="tel">
+        	<input type="text" class="login-field" value="${tel}" placeholder="phone number" id="login-name" name="tel" required>
         	<label class="login-field-icon fui-user" for="login-name"></label>
         </div>
 
 		birthday
 		<div class="control-group">
-		<input type="DATE" id="birth_day" name="birth_day" placeholder="生年月日" value="2000-01-01">
+		<input type="DATE" id="birth_day" name="birth_day" placeholder="生年月日" value="${birth_day == null ? '2000-01-01' : birth_day}">
 		</div>
 <script>
   document.addEventListener("DOMContentLoaded", () => {
@@ -48,17 +48,17 @@
   });
 </script>
         <div class="control-group">
-        	<input type="text" class="login-field" value="" placeholder="email" id="login-name" name="email">
+        	<input type="email" class="login-field" value="${email}" placeholder="email" id="login-name" name="email" required>
         	<label class="login-field-icon fui-user" for="login-name"></label>
         </div>
 
         <div class="control-group">
-        	<input type="password" class="login-field" value="" placeholder="password" id="login-pass" name="password">
+        	<input type="password" class="login-field" value="${password}" placeholder="password" id="login-pass" name="password" required>
         	<label class="login-field-icon fui-lock" for="login-pass"></label>
         </div>
         
         <div class="control-group">
-        	<input type="password" class="login-field" value="" placeholder="repeat password" id="login-pass" name="passwordCheck">
+        	<input type="password" class="login-field" value="${passwordCheck}" placeholder="repeat password" id="login-pass" name="passwordCheck" required>
         	<label class="login-field-icon fui-lock" for="login-pass"></label>
         </div>
 
