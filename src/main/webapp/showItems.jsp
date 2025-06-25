@@ -65,7 +65,7 @@
 			<a
 					href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}">
 				<img src="images/${item.imageName}" alt="画像"></a> 
-					<a href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}"><p>商品名：${item.itemName}</p></a><br>
+					<a href="/team_dev_athletemarket/ItemServlet?action=detail&id=${item.id}"><p>商品名：${item.itemName}</p></a>
 				カテゴリー：${item.categoryName}<br> 出品者名：${item.sellerName}<br>
     			値段：<fmt:formatNumber value="${item.price}" type="number"/>円<br>
 			</div>
