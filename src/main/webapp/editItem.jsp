@@ -5,61 +5,66 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>スポーツ用品CtoC売買サイト</title>
-<%-- <link rel="stylesheet" href="css/style.css"> --%>
+<title>商品情報変更</title>
+<link rel="stylesheet" href="css/registItem.css">
 </head>
 <body>
 
-	<h1 style="background-color : blue;">スポーツ用品CtoC売買サイト</h1>
+	<h1 style="text-align: center;">商品情報変更</h1>
 
-		<p style="color: red;">${failure}</p>
+	<p style="color: red;">${failure}</p>
 
-			<form action="/team_dev_athletemarket/ItemServlet?itemId=${bean.id}"
-				method="post" onsubmit="return check()">
-				<table>
-					<tr>
-						<th>商品名：</th>
-						<td><input type="text" name="name" id="name" value="${bean.itemName}" required></td>
-					</tr>
-					<tr>
-						<th>カテゴリー：</th>
-						<td>
-						<select name="category_id" id="category">
-						<option value="1" ${bean.categoryName == "硬式野球" ? "selected" : ""}>硬式野球</option>
-						<option value="2" ${bean.categoryName ==  "軟式野球" ? "selected" : ""}>軟式野球</option>
-						<option value="3" ${bean.categoryName == "サッカー" ? "selected" : ""}>サッカー</option>
-						<option value="4" ${bean.categoryName == "バスケ" ? "selected" : ""}>バスケ</option>
-						<option value="5" ${bean.categoryName == "バレー" ? "selected" : ""}>バレー</option>
-						<option value="6" ${bean.categoryName == "ハンドボール" ? "selected" : ""}>ハンドボール</option>
-						<option value="7" ${bean.categoryName == "硬式テニス" ? "selected" : ""}>硬式テニス</option>
-						<option value="8" ${bean.categoryName == "軟式テニス" ? "selected" : ""}>軟式テニス</option>
-						<option value="9" ${bean.categoryName == "ゴルフ" ? "selected" : ""}>ゴルフ</option>
-						<option value="10" ${bean.categoryName == "卓球" ? "selected" : ""}>卓球</option>
-						<option value="11" ${bean.categoryName == "バトミントン" ? "selected" : ""}>バトミントン</option>
-						<option value="12" ${bean.categoryName == "陸上" ? "selected" : ""}>陸上</option>
-						<option value="13" ${bean.categoryName == "その他" ? "selected" : ""}>その他</option>
-						</select>
-						</td>
-					</tr>
-					<tr>
-					
-						<th>値段：</th>
-						<td>
-						<input type="number" name="price" id="price" min="1" value="${bean.price}" required>
-						</td>
-							
-					</tr>
-					<tr>
-						<th>メモ(任意)：</th>
-						<td>
-						<textarea name="memo" rows="5" cols="50" id="memo">${bean.memo}</textarea>
-						</td>
-					</tr>
-				</table>
-				<input type="hidden" name="action" value="editConfirm">
-				<button>変更</button>
-			</form>
-			<br><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a>
+	<div class="Form">
+		<form action="/team_dev_athletemarket/ItemServlet?itemId=${bean.id}"
+			method="post" onsubmit="return check()">
+
+			<div class="Form-Item">
+				<p class="Form-Item-Label">
+					<span class="Form-Item-Label-Required">必須</span>商品名
+				</p>
+				<input type="text" name="name" id="name" value="${bean.itemName}"
+					class="Form-Item-Input" placeholder="例）サッカーボール" required>
+			</div>
+
+			<div class="Form-Item">
+				<p class="Form-Item-Label">
+				<span class="Form-Item-Label-Required">必須</span>カテゴリー名
+				</p>
+				<select name="category_id" id="category" class="Form-Item-Input">
+					<option value="1" ${bean.categoryName == "硬式野球" ? "selected" : ""}>硬式野球</option>
+					<option value="2" ${bean.categoryName ==  "軟式野球" ? "selected" : ""}>軟式野球</option>
+					<option value="3" ${bean.categoryName == "サッカー" ? "selected" : ""}>サッカー</option>
+					<option value="4" ${bean.categoryName == "バスケ" ? "selected" : ""}>バスケ</option>
+					<option value="5" ${bean.categoryName == "バレー" ? "selected" : ""}>バレー</option>
+					<option value="6" ${bean.categoryName == "ハンドボール" ? "selected" : ""}>ハンドボール</option>
+					<option value="7" ${bean.categoryName == "硬式テニス" ? "selected" : ""}>硬式テニス</option>
+					<option value="8" ${bean.categoryName == "軟式テニス" ? "selected" : ""}>軟式テニス</option>
+					<option value="9" ${bean.categoryName == "ゴルフ" ? "selected" : ""}>ゴルフ</option>
+					<option value="10" ${bean.categoryName == "卓球" ? "selected" : ""}>卓球</option>
+					<option value="11" ${bean.categoryName == "バトミントン" ? "selected" : ""}>バトミントン</option>
+					<option value="12" ${bean.categoryName == "陸上" ? "selected" : ""}>陸上</option>
+					<option value="13" ${bean.categoryName == "その他" ? "selected" : ""}>その他</option>
+				</select>
+
+			</div>
+			
+			<div class="Form-Item">
+				<p class="Form-Item-Label"><span class="Form-Item-Label-Required">必須</span>値段</p>
+				<input type="number" name="price" id="price" min="1" value="${bean.price}" class="Form-Item-Input" placeholder="例）1,000" required>
+			</div>
+			
+			<div class="Form-Item">
+				<p class="Form-Item-Label isMsg"><span class="Form-Item-Label-NoneRequired">任意</span>メモ</p>
+				<textarea name="memo" rows="5" cols="50" id="memo" class="Form-Item-Textarea"></textarea>
+			</div>
+			
+			<input type="hidden" name="action" value="editConfirm">
+			<button class="Form-Btn">変更</button>
+		</form>
+	</div>
+	
+	<p style="text-align : center;"><a href="/team_dev_athletemarket/ItemServlet">商品一覧に戻る</a></p>
+	
 </body>
 <script>
 	function check() {
