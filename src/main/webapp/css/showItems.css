@@ -110,3 +110,7 @@ img {
   border-radius: 5px; /* 角丸 */
   cursor: pointer;
 }
+
+.status {
+	text-align: center;
+}

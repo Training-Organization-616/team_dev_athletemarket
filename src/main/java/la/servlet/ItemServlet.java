@@ -47,7 +47,7 @@ public class ItemServlet extends HttpServlet {
 
 				// 検索結果なし
 				if (list == null || list.size() == 0) {
-					request.setAttribute("status", "出品状態の商品がありません");
+					request.setAttribute("status", "出品状態の商品が存在しません");
 					gotoPage(request, response, "/showItems.jsp");
 
 				} else {
