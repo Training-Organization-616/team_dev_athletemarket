@@ -26,8 +26,46 @@ body {
   font-size: 14px; /* 全体の文字サイズを適度に設定 */
   color: #333333; /* 読みやすい濃いグレー */
   padding: 10px; /* テキストと境界線の間に余白を追加 */
-  font-weight: bold; /* 太字で視認性を高める */
+  font-weight: bold; /* 太字で視認性を高める */ 
 }
+
+.card-buttons {
+  display: flex; /* 横並びに配置 */
+  justify-content: space-evenly; /* 等間隔に配置 */
+  align-items: center; /* 垂直方向を中央揃え */
+  margin-top: 10px; /* テキストとの余白を追加 */
+  gap: 10px; /* ボタン間に余白を追加 */
+}
+
+.card-buttons button {
+  height: 40px; /* 出品ボタンと同じ高さ */
+  padding: 5px 15px; /* ボタン内余白を調整 */
+  background-color: #8a9a5b; /* デフォルト背景色（参考として追加） */
+  border: none;
+  border-radius: 5px; /* 角丸 */
+  color: #ffffff; /* 文字色 */
+  cursor: pointer;
+  font-size: 14px; /* フォントサイズ */
+  transition: background-color 0.3s ease; /* ホバー効果をスムーズに */
+}
+
+.card-buttons .edit {
+  background-color: #4da6ff; /* 変更ボタン用の青 */
+}
+
+.card-buttons .edit:hover {
+  background-color: #2d88ff; /* ホバー時の濃い青 */
+}
+
+.card-buttons .delete {
+  background-color: #ff4c4c; /* 削除ボタン用の赤 */
+}
+
+.card-buttons .delete:hover {
+  background-color: rgb(181, 0, 0); /* ホバー時の濃い赤 */
+}
+
+
 
 .card:hover {
   transform: scale(1.01); /* カードを拡大 */
@@ -50,7 +88,6 @@ body {
 .card p {
   margin: 5px 0; /* テキスト間の余白を調整 */
 }
-
 
 img {
 	width: 280px;
@@ -87,12 +124,19 @@ img {
 
 /*並び替え、出品*/
 .sub {
-  display: flex; /* フレックスボックスで横並び */
-  justify-content: flex-end; /* 右寄せ */
-  align-items: center; /* 中央揃え */
+  display: flex;
+  justify-content: flex-end; /* 右寄せはそのまま維持 */
+  align-items: center; /* 垂直方向を中央揃え */
   gap: 10px; /* 要素間のスペース */
   padding: 20px 0; /* 上下に20pxの余白を追加 */
 }
+
+.sub span {
+  margin-right: auto; /* 自動で左に寄せる */
+  font-size: 20px; /* 見やすいサイズ */
+  font-weight: bold; /* 太字で強調 */
+}
+
 
 
 .sub select {
@@ -111,80 +155,30 @@ img {
   cursor: pointer;
 }
 
-.status {
-	text-align: center;
-}
-
-/*検索ボックス*/
-.search-box {
-  background-color: #ffffff;
-  padding: 20px;
-  margin: 20px auto; /* 上下に余白＋中央寄せ */
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  width: 300px;
-  text-align: center; /* フォーム内のテキストは左寄せのまま */
-}
-
-.search-box input {
-  width: 90%;
-  padding: 5px;
-  margin-top: 5px;
-}
-.search-box button {
-  margin-top: 10px;
-  width: 100%;
-  padding: 8px;
-  background-color: seagreen;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
-.search-box button:hover {
-  background-color: #3c7d3f;
+.sub span {
+  display: block; /* ブロック要素として配置 */
+  text-align: left; /* 左揃え */
+  font-size: 20px; /* 見やすいサイズ */
+  font-weight: bold; /* 強調 */
+  margin-bottom: 10px; /* 下の要素との余白を設定 */
 }
 
 
-/*テーブル*/
-table {
-  width: 100%;
-  border-collapse: collapse;
-  background-color: #ffffff;
-  margin-top: 20px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+/*商品一覧に戻るリンク*/
+.return-link {
+  display: block; /* 単独のブロック要素として配置 */
+  margin: 30px auto 0 auto; /* 上に余白を追加して中央揃え */
+  text-align: center; /* テキストを中央に配置 */
+  width: fit-content; /* コンテンツにフィットさせる幅 */
+  padding: 10px 20px; /* リンクの内部余白 */
+  background-color: #8a9a5b; /* 背景色 */
+  color: #ffffff; /* テキストの色を白に設定 */
+  text-decoration: none; /* 下線を削除 */
+  font-size: 16px; /* フォントサイズを少し大きめに */
+  border-radius: 5px; /* 角を丸くして柔らかい印象 */
+  transition: background-color 0.3s ease; /* ホバー時の変化をスムーズに */
 }
 
-th, td {
-  border: 1px solid #ccc;
-  padding: 12px 10px;
-  text-align: center;
-  font-size: 14px;
-}
-
-th {
-  background-color: seagreen;
-  color: white;
-  font-weight: bold;
-}
-
-tr:nth-child(even) {
-  background-color: #f9f9f9;
-}
-
-tr:hover {
-  background-color: #eef5ea;
-}
-
-button[value="delete"] {
-  background-color: #d9534f; /* Bootstrap風の警告色 */
-  color: white;
-  border: none;
-  padding: 6px 12px;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-button[value="delete"]:hover {
-  background-color: #c9302c;
+.return-link:hover {
+  background-color: #6b7a4a; /* ホバー時に濃い緑で変化 */
 }
