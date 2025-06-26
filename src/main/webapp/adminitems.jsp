@@ -58,7 +58,7 @@
 <!--			変更前-->
 <!--			<a href="/team_dev_athletemarket/AdminServlet?action=action&id=${item.id}">商品名：${item.itemName}</a><br>-->
 				
-				値段：${item.price}円<br>
+				値段：<fmt:formatNumber value="${item.price}" type="number"/>円<br>
 				メモ：${item.memo}<br>
 				出品日：${item.sellDay}<br>
 
