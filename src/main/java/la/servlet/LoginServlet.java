@@ -127,6 +127,10 @@ public class LoginServlet extends HttpServlet {
 					// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
 					//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
 					session.removeAttribute("loginUser");
+
+					//セッション情報消去
+					session.invalidate();
+
 					// ログイン画面を表示
 					response.sendRedirect("LoginServlet");
 
@@ -136,6 +140,10 @@ public class LoginServlet extends HttpServlet {
 					// セッションスコープの顧客情報を破棄する session:ブラウザとサーバの間でデータを保持する
 					//セッションに保存されている顧客情報("customer")を消去する（ログアウト時)
 					session.removeAttribute("loginUser");
+
+					//セッション情報削除
+					session.invalidate();
+
 					// 商品一覧を表示
 					response.sendRedirect("ItemServlet");
 
