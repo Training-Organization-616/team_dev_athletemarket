@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<!--カンマ表示用ライブラリ-->
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,35 +11,35 @@
 <link rel="stylesheet" href="css/detailItem.css">
 </head>
 <body>
-
+ 
 	<h1 style="text-align: center;">${bean.itemName}</h1>
-
+ 
 	<div class="categoryImage">
 		<img src="images/${bean.imageName}">
 	</div>
-
+ 
 	<div class="itemInfo">
 		<div class="Form">
 			<div class="Form-Item">
 				<p class="Form-Item-Label">カテゴリー：${bean.categoryName}</p>
 			</div>
-
+ 
 			<div class="Form-Item">
 				<p class="Form-Item-Label">出品者名：${bean.sellerName}</p>
 			</div>
-
+ 
 			<div class="Form-Item">
-				<p class="Form-Item-Label">値段：${bean.price}円</p>
+				<p class="Form-Item-Label">値段：<fmt:formatNumber value="${bean.price}" type="number"/>円</p>
 			</div>
-
+ 
 			<div class="Form-Item">
 				<p class="Form-Item-Label">メモ：${bean.memo}</p>
 			</div>
-
+ 
 			<div class="Form-Item">
 				<p class="Form-Item-Label">出品日：${bean.sellDay}</p>
 			</div>
-
+ 
 			<c:choose>
 				<%-- 購入されていない --%>
 				<c:when
@@ -69,13 +71,13 @@
 			</c:choose>
 		</div>
 	</div>
-	 
+	
 	<form action="/team_dev_athletemarket/ItemServlet" method="get">
 		<button class="Form-BtnBack">戻る</button>
 	</form>
-
+ 
 </body>
-
+ 
 <script>
 	function check() {
 		if (${empty loginUser}){
